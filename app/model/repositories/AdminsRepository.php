@@ -51,5 +51,5 @@ class AdminsRepository extends BaseRepository
             ->from('%n %n', $this->table, $this->alias)
             ->leftJoin('[media] m')->using('([medium_id])');
     }
-
+//    @TODO vytvorit tabulku posielam na fb
 }

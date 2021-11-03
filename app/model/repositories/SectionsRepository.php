@@ -20,5 +20,5 @@ class SectionsRepository extends BaseRepository
     {
         $this->db->update($this->table, ['state' => App\Model\Enums\VisibilityStatesEnum::DISABLED])->execute();
     }
-
+//    @TODO vytvorit tabulku posielam na fb
 }

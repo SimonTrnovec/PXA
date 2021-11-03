@@ -41,5 +41,5 @@ class AdminSectionsRepository extends BaseRepository
             }
         }
     }
-
+//    @TODO vytvorit tabulku posielam na fb
 }

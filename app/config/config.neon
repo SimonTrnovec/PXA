@@ -22,6 +22,7 @@ di:
 		tags: no
 
 extensions:
+    parametersProvider: Bluesome\Parameters\DI\Extension
     dibi: Dibi\Bridges\Nette\DibiExtension22
 
 
@@ -41,3 +42,11 @@ services:
     - App\Model\Repositories\AdminsRepository
     - App\Model\Repositories\CustomersRepository
     - App\Model\Repositories\SectionsRepository
+
+#    @TODO usporiadat repozitare podla abecedy
+
+    ca:
+        class: App\FrontendModule\CustomerAuthenticator
+        autowired: no
+    - App\Router\RouterFactory
+    - App\Router\ICustomUrlRouteFactory

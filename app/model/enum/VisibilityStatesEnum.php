@@ -28,4 +28,6 @@ class VisibilityStatesEnum extends Nette\Object
         return $items;
     }
 
+//    @TODO vytvorit tabulku posielam na fb
+
 }

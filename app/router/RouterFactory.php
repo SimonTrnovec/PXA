@@ -4,17 +4,44 @@ declare(strict_types=1);
 
 namespace App\Router;
 
+use App;
+use Bluesome\Parameters\Provider;
 use Nette;
+use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
 
-
-final class RouterFactory
+class RouterFactory
 {
-	use Nette\StaticClass;
+    /**
+     * @var Provider
+     */
+    private $parameters;
 
-	public static function createRouter(): RouteList
+    /**
+     * @var IDomainRouteFactory
+     */
+    private $domainRouteFactory;
+
+    public function __construct(Provider $p)
+    {
+        $this->parameters = $p;
+
+    }
+
+    /**
+     * @return  \Nette\Application\IRouter
+     */
+
+	public function createRouter()
 	{
-		$router = new RouteList;
+		$router = new RouteList();
+
+		$routeFlags = !$this->parameters->isDevelopment() ? Route::SECURED : 0;
+		$backendAuthRoute = $this->domainRouteFactory->create('//<system>/<presenter backend-auth>/<action>', [
+		    'action' => 'default',
+        ], $routeFlags);
+		$router[] = $backendAuthRoute;
+
 		$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
 		return $router;
 	}
