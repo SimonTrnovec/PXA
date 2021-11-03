@@ -1,4 +1,9 @@
+php:
+    date.timezone: Europe/Bratislava
+
 parameters:
+    customRoutes:
+        allowedParameters: []
 
 
 application:
@@ -15,6 +20,9 @@ di:
 	export:
 		parameters: no
 		tags: no
+
+extensions:
+    dibi: Dibi\Bridges\Nette\DibiExtension22
 
 
 services:

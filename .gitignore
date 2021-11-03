@@ -1,1 +1,14 @@
-config/local.neon
+log/*
+temp/*
+vendor/*
+node_modules
+!vendor/others
+www/assets/frontend/cache/*
+www/assets/vendor/*
+www/assets/css/*
+!.gitignore
+!.htaccess
+.idea/*
+!.idea/scopes
+app/config/config.local.neon
+www/media/*

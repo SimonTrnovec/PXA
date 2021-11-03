@@ -1,15 +1,30 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'v3.1.6',
-        'version' => '3.1.6.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '2a1af28a385db79aaa91517fda0ab7ef32aab386',
         'name' => 'nette/web-project',
         'dev' => true,
     ),
     'versions' => array(
+        'dg/dibi' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '*',
+            ),
+        ),
+        'dibi/dibi' => array(
+            'pretty_version' => 'v4.2.3',
+            'version' => '4.2.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../dibi/dibi',
+            'aliases' => array(),
+            'reference' => '73e16eb1a322599e8cdf350adcfdbc15eaf16577',
+            'dev_requirement' => false,
+        ),
         'latte/latte' => array(
             'pretty_version' => 'v2.10.4',
             'version' => '2.10.4.0',
@@ -182,12 +197,12 @@
             'dev_requirement' => false,
         ),
         'nette/web-project' => array(
-            'pretty_version' => 'v3.1.6',
-            'version' => '3.1.6.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '2a1af28a385db79aaa91517fda0ab7ef32aab386',
             'dev_requirement' => false,
         ),
         'symfony/thanks' => array(
