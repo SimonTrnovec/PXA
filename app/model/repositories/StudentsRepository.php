@@ -5,7 +5,7 @@ namespace App\Model\Repositories;
 use App;
 use Nette;
 
-class ClassesRepository extends BaseRepository
+class StudentsRepository extends BaseRepository
 {
     protected function setup()
     {

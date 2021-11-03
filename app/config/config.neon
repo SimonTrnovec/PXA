@@ -26,4 +26,18 @@ extensions:
 
 
 services:
-	- App\Router\RouterFactory::createRouter
+    user: App\Security\User
+    cache: Nette\Caching\Cache
+    - App\Router\RouterFactory::createRouter
+
+    # repositories
+    - App\Model\Repositories\ClassesRepository
+    - App\Model\Repositories\ClassroomsRepository
+    - App\Model\Repositories\SeatPlansRepository
+    - App\Model\Repositories\StudentsRepository
+    - App\Model\Repositories\SubjectsRepository
+    - App\Model\Repositories\TeachersRepository
+    - App\Model\Repositories\AdminSectionsRepository
+    - App\Model\Repositories\AdminsRepository
+    - App\Model\Repositories\CustomersRepository
+    - App\Model\Repositories\SectionsRepository

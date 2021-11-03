@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd9c548358b77326371e50710b59d121587d5b41d',
+        'reference' => 'a108201b32687b00a0c2b967529cac31bdaea0ba',
         'name' => 'nette/web-project',
         'dev' => true,
     ),
@@ -197,12 +197,12 @@
             'dev_requirement' => false,
         ),
         'nette/web-project' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd9c548358b77326371e50710b59d121587d5b41d',
+            'reference' => 'a108201b32687b00a0c2b967529cac31bdaea0ba',
             'dev_requirement' => false,
         ),
         'symfony/thanks' => array(
