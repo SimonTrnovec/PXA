@@ -4,7 +4,7 @@ namespace App\Model\Repositories;
 
 use App;
 use Nette\Caching\Cache;
-use DibiConnection;
+use  Dibi\Connection;
 use Nette;
 use Nette\NoImplemetedException;
 use Nette\Utils\Strings;
@@ -12,7 +12,7 @@ use Nette\Utils\Validators;
 
 abstract class BaseRepository
 {
-    /** @var DibiConnection Database connection resource */
+    /** @var Connection Database connection resource */
     protected $db;
 
     /** @var  Cache */
@@ -29,7 +29,7 @@ abstract class BaseRepository
 
     abstract protected function setup();
 
-    public function __construct(DibiConnection $db, Cache $c)
+    public function __construct(Connection $db, Cache $c)
     {
         $this->db = $db;
         $this->cache = $c;

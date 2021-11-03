@@ -6,7 +6,6 @@ use App;
 use App\Model\Enums\VisibilityStatesEnum;
 use App\Model\Repositories\AdminSectionsRepository;
 use App\Model\Repositories\AdminsRepository;
-use App\Model\Repositories\CustomersRepository;
 use App\Model\Repositories\SectionsRepository;
 use Nette;
 use Nette\Security\IAuthenticator;
