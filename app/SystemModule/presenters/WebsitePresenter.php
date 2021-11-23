@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SystemModule\Presenter;
+namespace App\SystemModule\Presenters;
 
 use App;
 use Nette;

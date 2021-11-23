@@ -1,11 +1,8 @@
 <?php
 
-declare(strict_types=1);
+require_once __DIR__ . '/../app/config/constant.php';
 
-require __DIR__ . '/../vendor/autoload.php';
-require '../app/config/constant.php';
+$container = require __DIR__ . '/../app/bootstrap.php';
 
-App\Bootstrap::boot()
-	->createContainer()
-	->getByType(Nette\Application\Application::class)
-	->run();
+$container->getService('application')->run();
+

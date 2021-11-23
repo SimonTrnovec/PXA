@@ -22,7 +22,6 @@ di:
 		tags: no
 
 extensions:
-    parametersProvider: Bluesome\Parameters\DI\Extension
     dibi: Dibi\Bridges\Nette\DibiExtension22
 
 
@@ -49,4 +48,3 @@ services:
         class: App\FrontendModule\CustomerAuthenticator
         autowired: no
     - App\Router\RouterFactory
-    - App\Router\ICustomUrlRouteFactory

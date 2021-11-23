@@ -1,32 +1,31 @@
 <?php
 
-declare(strict_types=1);
+require __DIR__ . '/../vendor/autoload.php';
 
-namespace App;
+$configurator = new Nette\Configurator;
 
-use Nette\Bootstrap\Configurator;
-
-
-class Bootstrap
-{
-	public static function boot(): Configurator
-	{
-		$configurator = new Configurator;
-		$appDir = dirname(__DIR__);
-
-		//$configurator->setDebugMode('secret@23.75.345.200'); // enable for your remote IP
-		$configurator->enableTracy($appDir . '/log');
-
-		$configurator->setTimeZone('Europe/Prague');
-		$configurator->setTempDirectory($appDir . '/temp');
-
-		$configurator->createRobotLoader()
-			->addDirectory(__DIR__)
-			->register();
-
-		$configurator->addConfig($appDir . '/app/config/config.neon');
-		$configurator->addConfig($appDir . '/app/config/config.local.neon');
-
-		return $configurator;
-	}
+if (($debug = getenv('DEBUG_MODE')) !== false){
+    $configurator->setDebugMode($debug == 'true');
 }
+
+$configurator->enableDebugger(__DIR__ . '/../log' , 'petko.sinal@gmail.com');
+
+error_reporting(E_ALL & ~E_DEPRECATED);
+
+$configurator->setTempDirectory(__DIR__ . '/../temp');
+
+$configurator->createRobotLoader()
+    ->addDirectory(__DIR__)
+    ->addDirectory(__DIR__ . '/../vendor/others')
+    ->register();
+
+$configurator->addConfig(__DIR__ . '/config/config.neon');
+$configurator->addConfig(__DIR__ . '/config/config.local.neon');
+
+$container = $configurator->createContainer();
+
+if (extension_loaded('newrelic')) {
+    newrelic_set_appname('zasadaci_poriadok');
+}
+
+return $container;

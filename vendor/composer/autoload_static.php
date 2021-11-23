@@ -8,12 +8,30 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
 {
     public static $files = array (
         'd507e002f7fce7f0c6dbf1f22edcb902' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/functions.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
             'Symfony\\Thanks\\' => 15,
+            'Symfony\\Polyfill\\Php81\\' => 23,
+            'Symfony\\Polyfill\\Php80\\' => 23,
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Contracts\\Translation\\' => 30,
+            'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\Filesystem\\' => 29,
+            'Symfony\\Component\\Config\\' => 25,
+        ),
+        'C' => 
+        array (
+            'Contributte\\Translation\\' => 24,
         ),
         'A' => 
         array (
@@ -26,6 +44,42 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         array (
             0 => __DIR__ . '/..' . '/symfony/thanks/src',
         ),
+        'Symfony\\Polyfill\\Php81\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
+        ),
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Symfony\\Contracts\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
+        ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Symfony\\Component\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/filesystem',
+        ),
+        'Symfony\\Component\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'Contributte\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/contributte/translation/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -33,7 +87,10 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Contributte\\Translation\\DebuggerTranslator' => __DIR__ . '/..' . '/contributte/translation/src/compatibility.php',
+        'Contributte\\Translation\\LoggerTranslator' => __DIR__ . '/..' . '/contributte/translation/src/compatibility.php',
         'Dibi\\Bridges\\Nette\\DibiExtension22' => __DIR__ . '/..' . '/dibi/dibi/src/Dibi/Bridges/Nette/DibiExtension22.php',
         'Dibi\\Bridges\\Tracy\\Panel' => __DIR__ . '/..' . '/dibi/dibi/src/Dibi/Bridges/Tracy/Panel.php',
         'Dibi\\Connection' => __DIR__ . '/..' . '/dibi/dibi/src/Dibi/Connection.php',
@@ -506,6 +563,8 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         'Nette\\Utils\\Type' => __DIR__ . '/..' . '/nette/utils/src/Utils/Type.php',
         'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
+        'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Tester\\Assert' => __DIR__ . '/..' . '/nette/tester/src/Framework/Assert.php',
         'Tester\\AssertException' => __DIR__ . '/..' . '/nette/tester/src/Framework/AssertException.php',
         'Tester\\CodeCoverage\\Collector' => __DIR__ . '/..' . '/nette/tester/src/CodeCoverage/Collector.php',
@@ -556,7 +615,25 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         'Tracy\\ILogger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Logger/ILogger.php',
         'Tracy\\Logger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/Logger/Logger.php',
         'Tracy\\OutputDebugger' => __DIR__ . '/..' . '/tracy/tracy/src/Tracy/OutputDebugger/OutputDebugger.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+        'XMLSchema' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
         'dibi' => __DIR__ . '/..' . '/dibi/dibi/src/Dibi/dibi.php',
+        'nusoap_base' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'nusoap_client' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'nusoap_fault' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'nusoap_parser' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'nusoap_server' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'nusoap_wsdlcache' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'nusoap_xmlschema' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'soap_fault' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'soap_parser' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'soap_server' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'soap_transport_http' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'soapclient' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'soapval' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'wsdl' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
+        'wsdlcache' => __DIR__ . '/..' . '/econea/nusoap/src/nusoap.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

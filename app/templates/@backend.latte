@@ -3,17 +3,24 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
+	<title n:inner-snippet="title"> Web | Zasadací poriadok</title>
 
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+
+
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
-	{include content}
+<H1>Zasadací poriadok</H1>
 
-	{block scripts}
-	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-	{/block}
+
+				<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+				{include content}
+
+				{block scripts}
+				<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+				{/block}
+
 </body>
 </html>
