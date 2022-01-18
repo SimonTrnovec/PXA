@@ -24,7 +24,7 @@ class RouterFactory
 	{
         $router = new RouteList;
 
-        $router->addRoute('<presenter backend-auth>/<action>',[
+        $router->addRoute('//%host%/%basePath%/login',[
             'presenter' => 'BackendAuth',
             'action'    => 'login',
         ]);

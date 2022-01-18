@@ -4,9 +4,8 @@ namespace App\Model\Repositories;
 
 use App;
 use Nette\Caching\Cache;
-use  Dibi\Connection;
+use Dibi\Connection;
 use Nette;
-use Nette\NoImplemetedException;
 use Nette\Utils\Strings;
 use Nette\Utils\Validators;
 
@@ -32,8 +31,6 @@ abstract class BaseRepository
     public function __construct(Connection $db, Cache $c)
     {
         $this->db = $db;
-        $this->cache = $c;
-
         $this->setup();
 
         Validators::assert($this->table, 'string','Table name');
@@ -149,24 +146,6 @@ abstract class BaseRepository
         return $value;
     }
 
-    public function getCount($languageId = NULL)
-    {
-        if ($this->translationTable === NULL) {
-            return $this->db->select('COUNT(%n)', $this->alias . '.' . $this->primaryKey)
-                ->from('%n %n', $this->table, $this->alias);
-        } else {
-            if ($languageId === NULL) {
-                return $this->db->select('COUNT(DISTINCT %n)', $this->alias . '.' . $this->primaryKey)
-                    ->from('%n %n', $this->table, $this->alias)
-                    ->leftJoin('%n %n', $this->translationTable, $this->alias . '_tr')->on('(%n = %n)', $this->alias . '.' . $this->primaryKey, $this->alias . '_tr.' . $this->primaryKey)
-                    ->leftJoin('[languages] l')->on('%n = [l.language_id] AND [l.is_default] = %i', $this->alias . '_tr.language_id', TRUE);
-            } else {
-                return $this->db->select('COUNT(DISTINCT %n)', $this->alias . '.' . $this->primaryKey)
-                    ->from('%n %n', $this->table, $this->alias)
-                    ->leftJoin('%n %n', $this->translationTable, $this->alias . '_tr')->on('(%n = %n AND %n = %i)', $this->alias . '.' . $this->primaryKey, $this->alias . '_tr.' . $this->primaryKey, $this->alias . '_tr.language_id', $languageId);
-            }
-        }
-    }
 
     public function __call($name, $arguments)
     {

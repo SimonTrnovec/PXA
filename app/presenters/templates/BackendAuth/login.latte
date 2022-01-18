@@ -6,17 +6,23 @@
 {*	<h1 n:block=title>Congratulations!</h1>*}
 {*</div>*}
 
+
+
 <div id="content">
+    <p class="title">Login</p>
     <ul>
         <li>
-            <a n:href="Homepage:default">Login</a>
+            {control loginForm}
+             <form n:name="loginForm">
+                <input n:name="username" class="bg-gray-700 rounded-md text-gray-300">
+             </form>
         </li>
     </ul>
 </div>
 
 <style>
     html { font: normal 18px/1.3 Georgia, "New York CE", utopia, serif; color: #666; -webkit-text-stroke: 1px rgba(0,0,0,0); overflow-y: scroll; }
-    body { background: #3484d2; color: #333; margin: 2em auto; padding: 0 .5em; max-width: 600px; min-width: 320px; }
+    body { background: #0F172A; color: #333; margin: 2em auto; padding: 0 .5em; max-width: 600px; min-width: 320px; }
 
     a { color: #006aeb; padding: 3px 1px; }
     a:hover, a:active, a:focus { background-color: #006aeb; text-decoration: none; color: white; }
@@ -27,7 +33,7 @@
         h1 { background: none; font-size: 40px; }
     }
 
-    #content { background: white; border: 1px solid #eff4f7; border-radius: 0 0 12px 12px; padding: 10px 4%; overflow: hidden; }
+    #content { background: #1E293B; border-radius: 12px 12px 12px 12px; padding: 10px 4%; overflow: hidden; }
 
     h2 { font: inherit; padding: 1.2em 0; margin: 0; }
 
@@ -38,4 +44,6 @@
     h2 { font: inherit; padding: 1.2em 0; margin: 0; }
 
     img { border: none; float: right; margin: 0 0 1em 3em; }
+
+    .title { font: inherit; font-size: 40px; color: white; text-align: center}
 </style>

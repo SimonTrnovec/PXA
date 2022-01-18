@@ -11,6 +11,7 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'a1d067aa2e53d6b47171c03cfc0ea5be' => __DIR__ . '/..' . '/nette/safe-stream/src/loader.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
@@ -31,6 +32,7 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         ),
         'C' => 
         array (
+            'Contributte\\Webpack\\' => 20,
             'Contributte\\Translation\\' => 24,
         ),
         'A' => 
@@ -75,6 +77,10 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         'Symfony\\Component\\Config\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
+        ),
+        'Contributte\\Webpack\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/contributte/webpack/src',
         ),
         'Contributte\\Translation\\' => 
         array (
@@ -427,6 +433,7 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         'Nette\\Forms\\Rules' => __DIR__ . '/..' . '/nette/forms/src/Forms/Rules.php',
         'Nette\\Forms\\SubmitterControl' => __DIR__ . '/..' . '/nette/forms/src/Forms/SubmitterControl.php',
         'Nette\\Forms\\Validator' => __DIR__ . '/..' . '/nette/forms/src/Forms/Validator.php',
+        'Nette\\Framework' => __DIR__ . '/..' . '/nette/nette/Nette/Framework.php',
         'Nette\\HtmlStringable' => __DIR__ . '/..' . '/nette/utils/src/HtmlStringable.php',
         'Nette\\Http\\Context' => __DIR__ . '/..' . '/nette/http/src/Http/Context.php',
         'Nette\\Http\\FileUpload' => __DIR__ . '/..' . '/nette/http/src/Http/FileUpload.php',
@@ -536,6 +543,10 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         'Nette\\Security\\UserStorage' => __DIR__ . '/..' . '/nette/security/src/Security/UserStorage.php',
         'Nette\\SmartObject' => __DIR__ . '/..' . '/nette/utils/src/SmartObject.php',
         'Nette\\StaticClass' => __DIR__ . '/..' . '/nette/utils/src/StaticClass.php',
+        'Nette\\Tokenizer\\Exception' => __DIR__ . '/..' . '/nette/tokenizer/src/Tokenizer/Exception.php',
+        'Nette\\Tokenizer\\Stream' => __DIR__ . '/..' . '/nette/tokenizer/src/Tokenizer/Stream.php',
+        'Nette\\Tokenizer\\Token' => __DIR__ . '/..' . '/nette/tokenizer/src/Tokenizer/Token.php',
+        'Nette\\Tokenizer\\Tokenizer' => __DIR__ . '/..' . '/nette/tokenizer/src/Tokenizer/Tokenizer.php',
         'Nette\\UnexpectedValueException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\Utils\\ArrayHash' => __DIR__ . '/..' . '/nette/utils/src/Utils/ArrayHash.php',
         'Nette\\Utils\\ArrayList' => __DIR__ . '/..' . '/nette/utils/src/Utils/ArrayList.php',
@@ -560,6 +571,9 @@ class ComposerStaticInitbaffb8a8445739b6af190f33738c6458
         'Nette\\Utils\\Reflection' => __DIR__ . '/..' . '/nette/utils/src/Utils/Reflection.php',
         'Nette\\Utils\\RegexpException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Strings' => __DIR__ . '/..' . '/nette/utils/src/Utils/Strings.php',
+        'Nette\\Utils\\TokenIterator' => __DIR__ . '/..' . '/nette/tokenizer/src/Utils/TokenIterator.php',
+        'Nette\\Utils\\Tokenizer' => __DIR__ . '/..' . '/nette/tokenizer/src/Utils/Tokenizer.php',
+        'Nette\\Utils\\TokenizerException' => __DIR__ . '/..' . '/nette/tokenizer/src/Utils/TokenizerException.php',
         'Nette\\Utils\\Type' => __DIR__ . '/..' . '/nette/utils/src/Utils/Type.php',
         'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',

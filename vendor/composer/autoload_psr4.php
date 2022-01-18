@@ -15,6 +15,7 @@ return array(
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Symfony\\Component\\Filesystem\\' => array($vendorDir . '/symfony/filesystem'),
     'Symfony\\Component\\Config\\' => array($vendorDir . '/symfony/config'),
+    'Contributte\\Webpack\\' => array($vendorDir . '/contributte/webpack/src'),
     'Contributte\\Translation\\' => array($vendorDir . '/contributte/translation/src'),
     'App\\' => array($baseDir . '/app'),
 );

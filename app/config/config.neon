@@ -9,7 +9,7 @@ parameters:
 application:
 	errorPresenter: Error
 	mapping:
-		*: App\*Module\Presenters\*Presenter
+		*: App\presenters\*Presenter
 
 
 session:
@@ -23,12 +23,14 @@ di:
 
 extensions:
     dibi: Dibi\Bridges\Nette\DibiExtension22
+    webpack: Contributte\Webpack\DI\WebpackExtension(%debugMode%, %consoleMode%)
 
 
 services:
     user: App\Security\User
     cache: Nette\Caching\Cache
     - App\Router\RouterFactory::createRouter
+    - App\Security\Authenticator
 
     # repositories
     - App\Model\Repositories\ClassesRepository
@@ -41,10 +43,11 @@ services:
     - App\Model\Repositories\AdminsRepository
     - App\Model\Repositories\CustomersRepository
     - App\Model\Repositories\SectionsRepository
+    - App\Model\Repositories\UsersRepository
 
 #    @TODO usporiadat repozitare podla abecedy
 
-    ca:
-        class: App\FrontendModule\CustomerAuthenticator
-        autowired: no
-    - App\Router\RouterFactory
+webpack:
+    build:
+        directory: %wwwDir%/dist
+        publicPath: dist/

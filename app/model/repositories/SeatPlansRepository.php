@@ -10,7 +10,7 @@ class SeatPlansRepository extends BaseRepository
     protected function setup()
     {
         $this->table = 'seat_plans';
-        $this->$this->primaryKey = 'seat_plan';
+        $this->primaryKey = 'seat_plan';
         $this->alias = 'sp';
 
     }

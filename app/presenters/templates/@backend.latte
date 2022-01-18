@@ -11,13 +11,10 @@
 
 <body>
 
-<H1>Zasadací poriadok</H1>
+{*				<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>*}
 
-
-				<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
 				{include content}
-
 				{block scripts}
 				<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 				{/block}

@@ -10,7 +10,7 @@ class StudentsRepository extends BaseRepository
     protected function setup()
     {
         $this->table = 'students';
-        $this->$this->primaryKey = 'student_id';
+        $this->primaryKey = 'student_id';
         $this->alias = 'st';
 
     }

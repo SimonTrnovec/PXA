@@ -1,3 +1,4 @@
 composer require contributte/translation
 composer require dibi/dibi
 composer require econea/nusoap
+composer require contributte/webpack

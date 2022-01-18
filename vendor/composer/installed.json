@@ -94,6 +94,86 @@
             "install-path": "../contributte/translation"
         },
         {
+            "name": "contributte/webpack",
+            "version": "2.1.1",
+            "version_normalized": "2.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contributte/webpack.git",
+                "reference": "105ec89d54182319c72136d7139ba63f8585b431"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/contributte/webpack/zipball/105ec89d54182319c72136d7139ba63f8585b431",
+                "reference": "105ec89d54182319c72136d7139ba63f8585b431",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "nette/di": "^3.0",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "latte/latte": "^2.4",
+                "nette/application": "^3.0",
+                "nette/bootstrap": "^3.0",
+                "nette/tester": "^2.0",
+                "phpstan/phpstan": "^0.12",
+                "symplify/easy-coding-standard": "^8.3",
+                "tracy/tracy": "^2.4"
+            },
+            "suggest": {
+                "latte/latte": "to enable Latte integration via {webpack} macro",
+                "tracy/tracy": "to enable asset debugging in the debug bar panel"
+            },
+            "time": "2021-10-11T15:19:25+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Contributte\\Webpack\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jiří Pudil",
+                    "email": "me@jiripudil.cz",
+                    "homepage": "https://jiripudil.cz"
+                }
+            ],
+            "description": "Webpack integration for Nette Framework.",
+            "homepage": "https://github.com/contributte/webpack",
+            "keywords": [
+                "nette",
+                "webpack"
+            ],
+            "support": {
+                "email": "me@jiripudil.cz",
+                "issues": "https://github.com/contributte/webpack/issues",
+                "source": "https://github.com/contributte/webpack/tree/2.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://contributte.org/partners.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/f3l1x",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../contributte/webpack"
+        },
+        {
             "name": "dibi/dibi",
             "version": "v4.2.3",
             "version_normalized": "4.2.3.0",
@@ -1172,6 +1252,82 @@
             "install-path": "../nette/neon"
         },
         {
+            "name": "nette/nette",
+            "version": "v3.1.0",
+            "version_normalized": "3.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/nette.git",
+                "reference": "3fc1e40c59d216570da16ba1846cc855f64c7204"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/nette/zipball/3fc1e40c59d216570da16ba1846cc855f64c7204",
+                "reference": "3fc1e40c59d216570da16ba1846cc855f64c7204",
+                "shasum": ""
+            },
+            "require": {
+                "latte/latte": "^2.9",
+                "nette/application": "^3.1",
+                "nette/bootstrap": "^3.1",
+                "nette/caching": "^3.1",
+                "nette/database": "^3.1",
+                "nette/di": "^3.0",
+                "nette/finder": "^2.5",
+                "nette/forms": "^3.0",
+                "nette/http": "^3.1",
+                "nette/mail": "^3.1",
+                "nette/php-generator": "^3.5",
+                "nette/robot-loader": "^3.3",
+                "nette/safe-stream": "^2.4",
+                "nette/security": "^3.1",
+                "nette/tokenizer": "^3.0",
+                "nette/utils": "^3.2",
+                "tracy/tracy": "^2.8"
+            },
+            "time": "2021-01-05T15:22:22+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "Nette/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0-only",
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "👪 Nette Framework - innovative framework for fast and easy development of secured web applications in PHP (metapackage)",
+            "homepage": "https://nette.org",
+            "keywords": [
+                "framework",
+                "metapackage",
+                "mvc"
+            ],
+            "support": {
+                "issues": "https://github.com/nette/nette/issues",
+                "source": "https://github.com/nette/nette/tree/v3.1.0"
+            },
+            "install-path": "../nette/nette"
+        },
+        {
             "name": "nette/php-generator",
             "version": "v3.6.2",
             "version_normalized": "3.6.2.0",
@@ -1376,6 +1532,72 @@
                 "source": "https://github.com/nette/routing/tree/v3.0.2"
             },
             "install-path": "../nette/routing"
+        },
+        {
+            "name": "nette/safe-stream",
+            "version": "v2.4.2",
+            "version_normalized": "2.4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/safe-stream.git",
+                "reference": "921bd889860cf697a022642e628d086c9048ca67"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/safe-stream/zipball/921bd889860cf697a022642e628d086c9048ca67",
+                "reference": "921bd889860cf697a022642e628d086c9048ca67",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "nette/tester": "^2.0",
+                "phpstan/phpstan": "^0.12",
+                "tracy/tracy": "^2.3"
+            },
+            "time": "2021-06-02T14:42:24+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "src/loader.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0-only",
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "Nette SafeStream: atomic and safe manipulation with files via native PHP functions.",
+            "homepage": "https://nette.org",
+            "keywords": [
+                "atomic",
+                "filesystem",
+                "nette",
+                "safe"
+            ],
+            "support": {
+                "issues": "https://github.com/nette/safe-stream/issues",
+                "source": "https://github.com/nette/safe-stream/tree/v2.4.2"
+            },
+            "install-path": "../nette/safe-stream"
         },
         {
             "name": "nette/schema",
@@ -1591,6 +1813,65 @@
                 "source": "https://github.com/nette/tester/tree/v2.4.1"
             },
             "install-path": "../nette/tester"
+        },
+        {
+            "name": "nette/tokenizer",
+            "version": "v3.1.0",
+            "version_normalized": "3.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/tokenizer.git",
+                "reference": "14d42330fb299e877ad5a01f955098e35190c042"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/tokenizer/zipball/14d42330fb299e877ad5a01f955098e35190c042",
+                "reference": "14d42330fb299e877ad5a01f955098e35190c042",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "nette/tester": "~2.0",
+                "tracy/tracy": "^2.3"
+            },
+            "time": "2019-09-13T11:28:17+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "Nette Tokenizer",
+            "homepage": "https://nette.org",
+            "support": {
+                "issues": "https://github.com/nette/tokenizer/issues",
+                "source": "https://github.com/nette/tokenizer/tree/v3.1.0"
+            },
+            "install-path": "../nette/tokenizer"
         },
         {
             "name": "nette/utils",

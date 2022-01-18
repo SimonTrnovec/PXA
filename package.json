@@ -1,0 +1,34 @@
+{
+  "name": "zasadaciporiadok",
+  "version": "1.0.0",
+  "description": "Nette Web Project\r =================",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonTrnovec/PXA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimonTrnovec/PXA/issues"
+  },
+  "homepage": "https://github.com/SimonTrnovec/PXA#readme",
+  "dependencies": {
+    "gulp-uglifycss": "^1.1.0",
+    "postcss-loader": "^6.2.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.65.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^9.0.1",
+    "postcss": "^8.4.5",
+    "tailwindcss": "^3.0.15",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  }
+}
