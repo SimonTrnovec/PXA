@@ -13,7 +13,7 @@ function buildStyles() {
 }
 
 function watchFiles() {
-    watch(['./assets/*.css', './app/**/*.{html,js,latte}'], buildStyles());
+    watch('./app/**/*.{html,js,latte}', buildStyles);
     console.log("Watching for Changes..\n");
 }
 

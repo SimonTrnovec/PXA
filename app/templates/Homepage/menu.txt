@@ -1,0 +1,5 @@
+domov:Domov
+prehlad:Prehľad
+ucitelia:Učitelia
+ziaci:Žiaci
+triedy:Triedy

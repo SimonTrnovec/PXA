@@ -23,7 +23,6 @@ di:
 
 extensions:
     dibi: Dibi\Bridges\Nette\DibiExtension22
-    webpack: Contributte\Webpack\DI\WebpackExtension(%debugMode%, %consoleMode%)
 
 
 services:
@@ -47,7 +46,3 @@ services:
 
 #    @TODO usporiadat repozitare podla abecedy
 
-webpack:
-    build:
-        directory: %wwwDir%/dist
-        publicPath: dist/
