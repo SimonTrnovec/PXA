@@ -10,6 +10,8 @@ if (($debug = getenv('DEBUG_MODE')) !== false){
 
 $configurator->enableDebugger(__DIR__ . '/../log' , 'petko.sinal@gmail.com');
 
+$configurator->enableTracy(dirname(__DIR__ . "/log"));
+
 error_reporting(E_ALL & ~E_DEPRECATED);
 
 $configurator->setTempDirectory(__DIR__ . '/../temp');
