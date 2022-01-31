@@ -1,10 +1,30 @@
 {extends '..//@backend.latte'}
 
 {block content}
-{foreach $teachers as $teacher}
+<table class="table-auto block text-slate-300 w-full">
+	<thead class="bg-slate-700 font-medium">
+		<tr>
+			<th class="p-2">Meno</th>
+            <th class="p-2">Priezvisko</th>
+            <th class="p-2">Email</th>
+            <th class="p-2">Trieda</th>
+            <th class="p-2">Miesto</th>
+		</tr>
+        
+	</thead>
+	<tbody class="bg-slate-800">
+		<tr>
+			<td class="p-2">František</td>
+            <td class="p-2">Benčík</td>
+            <td class="p-2">bencik@sstv.sk</td>
+            <td class="p-2">Žiadna</td>
+            <td class="p-2">ŠVL 1</td>
+		</tr>
+	</tbody>
+</table>
+{*{foreach $teachers as $teacher}
     {dump $teacher}
     <h1>Meno: {$teacher->name}</h1>
     <h1>Priezvisko: {$teacher->surname}</h1>
     <h1>Email: {$teacher->email}</h1>
-{/foreach}
-<h1>Učitelia</h1>
+{/foreach}*}

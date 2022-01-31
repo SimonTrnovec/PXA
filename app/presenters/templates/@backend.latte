@@ -14,12 +14,10 @@
 </div>
 
 <body class="bg-slate-900" >
-
-	{ifset $hideSidebar}
-
-	{else}
-
 	<div class="flex min-h-screen">
+		{ifset $hideSidebar}
+
+		{else}
 		<div class="flex-none h-full">
 			<div class=" bg-slate-700 " style=" width: 200px;  ">
 				<h2 class="p-5 font-medium text-xl" style="color: white;">Maturitná práca</h2>
@@ -40,66 +38,26 @@
 					 block px-4 py-2 rounded-md" style=" width: 160px; ">
 						Rozvh
 					</a>
-				</div>
-				<div id="content box-content" class="pl-5">
+					<div id="content box-content" class="flex pt-80">
 					<ul>
 						<li>
-							<a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900"">{dump $this}</a>
+							<a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900 p-2" n:href="logout!">Odhlásiť sa</a>
 						</li>
 						<li>
-							<a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900" n:href="logout!">Odhlásiť sa</a>
+							<a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900">{dump $this}</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
-
-		<div class="flex-1">
-
-		</div>
-
-	{/ifset}
-
-{*<div class="col-md-2">
-      	<div class="d-flex flex-column flex-shrink-0 p-3 text-dark bg-dark" style="height: 900px;">
-          <h2 style="color: white;">Maturitná práca</h2>
-            <h5 style="color: white;">Šimon Trnovec, Peter Šinál</h5>
-              <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-              </a>
-              <hr>
-              <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                <button type="submit" class="bg-slate-700 block px-4 py-2 rounded-md text-slate-300">
-                Učitelia   
-                </button>
-                </li>
-                <li class="pb-3">
-                <button type="submit" class="bg-slate-700 text-slate-300 block px-4 py-2 rounded-md">
-                Žiaci  
-                </button>
-                </li>
-                <li>
-                <button type="submit" class="bg-slate-700 text-slate-300 block px-4 py-2 rounded-md">
-                Triedy    
-                </button>
-                </li>
-				<li>
-                <button type="submit" class="bg-slate-700 text-slate-300 block px-4 py-2 rounded-md">
-                Rozvh    
-                </button>
-				</li>
-              </ul>
-            <div>
-          </div>
-    </div>
-    </div>*}
-{*				<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>*}
-
-
-				{include content}
-				{block scripts}
-				<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
-				{/block}
-
+				</div>
+				
+		{/ifset}
+		<div classname="flex-1 p-10">
+			{include content}
+		</div>		
+	{block scripts}
+		<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+	{/block}
 </body>
 </html>
