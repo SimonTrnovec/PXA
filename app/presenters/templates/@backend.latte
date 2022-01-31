@@ -10,27 +10,44 @@
 </head>
 
 <body class="bg-slate-900" >
-<div class=" bg-slate-700" style=" width: 200px; height: 600px; ">
-<h2 class="p-5 font-medium text-xl" style="color: white;">Maturitná práca</h2>
-<div class=" bg-slate-700 p-5 pt-27 " style=" width: 200px; height: auto;  " >
-				<button type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 block px-4 py-2
-				 rounded-md text-slate-300" style=" width: 160px; ">
-                Učitelia   
-                </button>
-				<button type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 text-slate-300
-				 block px-4 py-2 rounded-md" style=" width: 160px; ">
-                Žiaci  
-                </button>
-				<button type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 text-slate-300
-				 block px-4 py-2 rounded-md" style=" width: 160px; ">
-                Triedy    
-                </button>
-				<button type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 text-slate-300
-				 block px-4 py-2 rounded-md" style=" width: 160px; ">
-                Rozvh    
-                </button>
-</div>
-</div>
+
+	{ifset $hideSidebar}
+
+	{else}
+		<div class=" bg-slate-700" style=" width: 200px; height: 600px; ">
+		<h2 class="p-5 font-medium text-xl" style="color: white;">Maturitná práca</h2>
+		<div class=" bg-slate-700 p-5 pt-27 " style=" width: 200px; height: auto;  " >
+						<button type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 block px-4 py-2
+						 rounded-md text-slate-300" style=" width: 160px; ">
+						Učitelia
+						</button>
+						<button type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 text-slate-300
+						 block px-4 py-2 rounded-md" style=" width: 160px; ">
+						Žiaci
+						</button>
+						<button type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 text-slate-300
+						 block px-4 py-2 rounded-md" style=" width: 160px; ">
+						Triedy
+						</button>
+						<button type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 text-slate-300
+						 block px-4 py-2 rounded-md" style=" width: 160px; ">
+						Rozvh
+						</button>
+		</div>
+		</div>
+		<div id="content box-content" class="pl-5">
+			<ul>
+				<li>
+					<a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900" href=":Backend:Test:">Prehľad</a>
+				</li>
+				<li>
+					<a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900" n:href="logout!">Odhlásiť sa</a>
+				</li>
+			</ul>
+		</div>
+	{/ifset}
+
+
 {*<div class="col-md-2">
       	<div class="d-flex flex-column flex-shrink-0 p-3 text-dark bg-dark" style="height: 900px;">
           <h2 style="color: white;">Maturitná práca</h2>
