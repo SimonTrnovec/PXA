@@ -33,7 +33,6 @@ class RouterFactory
             'presenter' => 'Homepage',
             'action'    => 'default',
         ]);
-
         return $router;
 	}
 }

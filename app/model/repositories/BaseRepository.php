@@ -26,6 +26,9 @@ abstract class BaseRepository
     /** @var  string Table alias */
     protected $alias = NULL;
 
+    /** @var  string Table alias */
+    protected $translationTable = NULL;
+
     abstract protected function setup();
 
     public function __construct(Connection $db, Cache $c)

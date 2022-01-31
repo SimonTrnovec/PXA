@@ -10,9 +10,16 @@ class ClassesRepository extends BaseRepository
     protected function setup()
     {
        $this->table = 'classes';
-       $this->$this->primaryKey = 'class_id';
+       $this->primaryKey = 'class_id';
        $this->alias = 'cl';
 
+    }
+
+    public function insert($data)
+    {
+        $data['created'] = new DataTime();
+
+        return parent::insert($data);
     }
 
 }
