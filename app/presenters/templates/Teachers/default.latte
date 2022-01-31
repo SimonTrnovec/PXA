@@ -1,0 +1,10 @@
+{extends '..//@backend.latte'}
+
+{block content}
+{foreach $teachers as $teacher}
+    {dump $teacher}
+    <h1>Meno: {$teacher->name}</h1>
+    <h1>Priezvisko: {$teacher->surname}</h1>
+    <h1>Email: {$teacher->email}</h1>
+{/foreach}
+<h1>Učitelia</h1>

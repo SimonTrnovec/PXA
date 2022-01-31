@@ -5,7 +5,7 @@ namespace App\Presenters;
 use Nette;
 
 
-final class HomepagePresenter extends BasePresenter
+final class StudentsPresenter extends BasePresenter
 {
 
     public function actionDefault(){
