@@ -22,15 +22,10 @@
             <td class="p-2">{$teacher->email}</td>
             <td class="p-2">{$teacher->class_name}</td>
             <td class="p-2">{$teacher->classroom_name}</td>
-            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" href="edit $teacher->teacher_id">Edit</a></td>
-            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" href="Delete! $teacher->teacher_id">Delete</a></td>
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="edit $teacher->teacher_id">Edit</a></td>
+            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" n:href="Delete! $teacher->teacher_id">Delete</a></td>
 		</tr>
 	{/foreach}
 	</tbody>
 </table>
-{*{foreach $teachers as $teacher}
-    {dump $teacher}
-    <h1>Meno: {$teacher->name}</h1>
-    <h1>Priezvisko: {$teacher->surname}</h1>
-    <h1>Email: {$teacher->email}</h1>
-{/foreach}*}
+<a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" href="add">Add</a>

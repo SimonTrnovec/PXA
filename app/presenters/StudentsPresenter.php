@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Presenters;
+use App\Model\Repositories\ClassesRepository;
 use App\Model\Repositories\StudentsRepository;
 use Nette;
 use Nette\Application\UI\Form;
@@ -14,6 +15,12 @@ final class StudentsPresenter extends BasePresenter
      * @var StudentsRepository
      */
     public $studentsRepository;
+
+    /**
+     * @inject
+     * @var ClassesRepository
+     */
+    public $classesRepository;
 
     public function actionDefault(){
         parent::startup();
@@ -32,10 +39,19 @@ final class StudentsPresenter extends BasePresenter
 
         $form->addText('surname', 'Priezvisko');
 
-        $form->addText('class_id', 'Trieda');
-
         $form->addEmail('email', 'E-mail');
+
         $form->addText('phone', 'Telefón');
+
+        $classes = $this->classesRepository->findAll()->fetchAll();
+
+        $clas = [];
+        foreach ($classes as $class){
+            $clas[$class->class_id] = $class->class_name;
+        }
+
+        $form->addSelect('class_id', 'Trieda', $clas)
+            ->setPrompt('-');;
 
         return $form;
     }
@@ -68,6 +84,17 @@ final class StudentsPresenter extends BasePresenter
         return $form;
     }
 
+    public function actionAdd($id): Form
+    {
+        /** @var  \Nette\Application\UI\Form $form */
+        $form = $this['studentForm'];
+
+        $form->addSubmit('ok', 'Pridať');
+        $form->onSuccess[] = [$this, 'studentFormAddSucceeded'];
+
+        return $form;
+    }
+
     public function studentFormEditSucceeded($form)
     {
         $values = $form->getValues();
@@ -77,8 +104,8 @@ final class StudentsPresenter extends BasePresenter
             'name' => $values->name,
             'surname' => $values->surname,
             'email' => $values->email,
-            'class_id' => $values->class_id,
             'phone' => $values->phone,
+            'class_id' => $values->class_id,
         ];
 
         $this->studentsRepository->update($studentId, $studentData);
@@ -99,26 +126,6 @@ final class StudentsPresenter extends BasePresenter
     $this->redirect('default');
 }
 
-    public function createComponentStudentAddForm(): Form
-    {
-
-        $form = new Form;
-
-        $form->addText('name', 'Meno Žiaka');
-
-        $form->addText('surname', 'Priezvisko Žiaka');
-
-        $form->addText('class_id', 'Trieda');
-
-        $form->addEmail('email', 'E-Mail Žiaka');
-
-        $form->addText('phone', 'Telefón Žiaka');
-
-        $form->addSubmit('send', 'Odoslať');
-        $form->onSuccess[] = [$this, 'StudentFormAddSucceeded'];
-
-        return $form;
-    }
 
     public function StudentFormAddSucceeded(Form $form, $values): void
     {
