@@ -1,9 +1,9 @@
 {extends '..//@backend.latte'}
 
 {block content}
-<h1>Žiaci</h1>
+<h1 class="font-medium text-xl justify-center" style="color: white;">Žiaci</h1>
 
-<table class="table-auto block text-slate-300 w-full">
+<table class="table-auto block text-slate-300 w-full justify-center">
     <thead class="bg-slate-700 font-medium">
     <tr>
         <th class="p-2">Meno</th>
@@ -24,10 +24,11 @@
             <td class="p-2">{$student->class_name}</td>
             <td class="p-2">{$student->email}</td>
             <td class="p-2">{$student->phone}</td>
-            <td class="p-2"><a href="Edit">Edit</a></td>
-            <td class="p-2"><a href="Delete">Delete</a></td>
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" href="Edit">Edit  </a></td>
+            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" href="Delete">Delete</a></td>
         </tr>
     {/foreach}
     </tbody>
 </table>
 <a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900" n:href="Students:add">Add</a>
+
