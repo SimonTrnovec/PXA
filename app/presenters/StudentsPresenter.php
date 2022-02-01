@@ -23,10 +23,80 @@ final class StudentsPresenter extends BasePresenter
             ->leftJoin('[classes] cl')
             ->on('[cl.class_id] = [st.class_id]')
             ->fetchAll();
-
     }
 
-    public function createComponentAddStudentForm(): Form
+    protected function createComponentStudentForm(): Form
+    {
+        $form = new Form;
+        $form->addText('name', 'Meno');
+
+        $form->addText('surname', 'Priezvisko');
+
+        $form->addEmail('email', 'E-mail');
+        $form->addText('phone', 'Telefón');
+
+        return $form;
+    }
+
+    private function getStudent($id)
+    {
+       $student = $this->studentsRepository->findAll()->where('[st.student_id] = %i', $id)->fetch();
+
+       if (!$student){
+           $this->flashMessage('Študent neexistuje.', 'error');
+           $this->redirect('default');
+       }
+
+       return $student;
+    }
+
+    public function actionEdit($id): Form
+    {
+        $student = $this->getStudent($id);
+
+        /** @var  \Nette\Application\UI\Form $form */
+        $form = $this['studentForm'];
+
+        $this->template->student = $student;
+
+        $form->setDefaults($student);
+        $form->addSubmit('ok', 'Upraviť');
+        $form->onSuccess[] = [$this, 'studentFormEditSucceeded'];
+
+        return $form;
+    }
+
+    public function studentFormEditSucceeded($form)
+    {
+        $values = $form->getValues();
+        $studentId = $this->getParameter('id');
+
+        $studentData = [
+            'name' => $values->name,
+            'surname' => $values->surname,
+            'email' => $values->email,
+            'phone' => $values->phone,
+        ];
+
+        $this->studentsRepository->update($studentId, $studentData);
+
+        $this->flashMessage('Študent bol upravený');
+        $this->redirect('default');
+    }
+
+    public function handleDelete($id){
+
+    $student = $this->getStudent($id);
+
+
+    $this->studentsRepository->delete($student->student_id);
+
+    $this->flashMessage('Študent bol zmazaný');
+
+    $this->redirect('default');
+}
+
+    public function createComponentStudentAddForm(): Form
     {
 
         $form = new Form;
@@ -40,12 +110,12 @@ final class StudentsPresenter extends BasePresenter
         $form->addText('phone', 'Telefón Žiaka');
 
         $form->addSubmit('send', 'Odoslať');
-        $form->onSuccess[] = [$this, 'addStudentFormSucceeded'];
+        $form->onSuccess[] = [$this, 'StudentFormAddSucceeded'];
 
         return $form;
     }
 
-    public function addStudentFormSucceeded(Form $form, $values): void
+    public function StudentFormAddSucceeded(Form $form, $values): void
     {
         $values = $form->getValues();
 
@@ -58,22 +128,11 @@ final class StudentsPresenter extends BasePresenter
 
         $this->flashMessage('Študent bol pridaný');
 
-        $this->redirect('this');
+        $this->redirect('default');
 
 
     }
 
-    public function createComponentEditForm(): Form
-    {
 
-        $form = new Form;
-        $form->addText('name', 'Meno Žiaka');
 
-        $form->addText('surname', 'Priezvisko Žiaka');
-
-        $form->addSubmit('send', 'Odoslať');
-
-        $form->onSuccess[] = [$this, 'loginFormSucceeded'];
-        return $form;
-    }
 }

@@ -24,8 +24,8 @@
             <td class="p-2">{$student->class_name}</td>
             <td class="p-2">{$student->email}</td>
             <td class="p-2">{$student->phone}</td>
-            <td class="p-2"><a href="Edit">Edit</a></td>
-            <td class="p-2"><a href="Delete">Delete</a></td>
+            <td class="p-2"><a n:href="edit $student->student_id">Edit</a></td>
+            <td class="p-2"><a n:href="Delete! $student->student_id">Delete</a></td>
         </tr>
     {/foreach}
     </tbody>
