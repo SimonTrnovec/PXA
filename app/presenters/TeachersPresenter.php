@@ -71,7 +71,7 @@ final class TeachersPresenter extends BasePresenter
             $classroomavalible[$classroom->classroom_id] = $classroom->classroom_name;
         }
 
-        $form->addSelect('classroom_id', 'Miesto', $classroomavalible)
+        $form->addSelect('classroom_id', 'Učebňa', $classroomavalible)
             ->setPrompt('-');;
 
         return $form;

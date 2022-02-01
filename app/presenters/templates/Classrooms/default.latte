@@ -1,0 +1,26 @@
+{extends '..//@backend.latte'}
+
+{block content}
+<table class="table-auto block text-slate-300 w-full justify-center">
+    <thead class="bg-slate-700 font-medium">
+    <tr>
+        <th class="p-2">Učebňa</th>
+        <th class="p-2"></th>
+        <th class="p-2"></th>
+        <th class="p-2"></th>
+    </tr>
+
+    </thead>
+    <tbody class="bg-slate-800">
+    {foreach $classrooms as $classroom}
+        <tr>
+            <td class="p-2">{$classroom->classroom_name}</td>
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" href="detail">Zobraziť</a></td>
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="edit $classroom->classroom_id">Edit</a></td>
+            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" n:href="Delete! $classroom->classroom_id">Delete</a></td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>
+<a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" href="add">Add</a>
+
