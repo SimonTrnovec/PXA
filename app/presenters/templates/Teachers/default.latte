@@ -9,17 +9,23 @@
             <th class="p-2">Email</th>
             <th class="p-2">Trieda</th>
             <th class="p-2">Miesto</th>
+            <th class="p-2"></th>
+            <th class="p-2"></th>
 		</tr>
         
 	</thead>
 	<tbody class="bg-slate-800">
+	{foreach $teachers as $teacher}
 		<tr>
-			<td class="p-2">František</td>
-            <td class="p-2">Benčík</td>
-            <td class="p-2">bencik@sstv.sk</td>
-            <td class="p-2">Žiadna</td>
-            <td class="p-2">ŠVL 1</td>
+			<td class="p-2">{$teacher->name}</td>
+            <td class="p-2">{$teacher->surname}</td>
+            <td class="p-2">{$teacher->email}</td>
+            <td class="p-2">{$teacher->class_name}</td>
+            <td class="p-2">{$teacher->classroom_name}</td>
+            <td class="p-2"><a href="Edit">Edit</a></td>
+            <td class="p-2"><a href="Delete">Delete</a></td>
 		</tr>
+	{/foreach}
 	</tbody>
 </table>
 {*{foreach $teachers as $teacher}

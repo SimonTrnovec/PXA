@@ -93,7 +93,7 @@ abstract class BaseRepository
         $this->db->insert($this->table, $values)
             ->execute();
 
-        return $this->db->insertId();
+        return $this->db->getInsertId();
     }
 
     /**
