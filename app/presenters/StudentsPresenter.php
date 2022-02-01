@@ -32,6 +32,8 @@ final class StudentsPresenter extends BasePresenter
 
         $form->addText('surname', 'Priezvisko');
 
+        $form->addText('class_id', 'Trieda');
+
         $form->addEmail('email', 'E-mail');
         $form->addText('phone', 'Telefón');
 
@@ -75,6 +77,7 @@ final class StudentsPresenter extends BasePresenter
             'name' => $values->name,
             'surname' => $values->surname,
             'email' => $values->email,
+            'class_id' => $values->class_id,
             'phone' => $values->phone,
         ];
 
@@ -105,6 +108,8 @@ final class StudentsPresenter extends BasePresenter
 
         $form->addText('surname', 'Priezvisko Žiaka');
 
+        $form->addText('class_id', 'Trieda');
+
         $form->addEmail('email', 'E-Mail Žiaka');
 
         $form->addText('phone', 'Telefón Žiaka');
@@ -122,6 +127,7 @@ final class StudentsPresenter extends BasePresenter
         $this->studentsRepository->insert([
             'name'      => $values->name,
             'surname'   => $values->surname,
+            'class_id'   => $values->class_id,
             'email'     => $values->email,
             'phone'     => $values->phone,
         ]);
