@@ -22,8 +22,8 @@
             <td class="p-2">{$teacher->email}</td>
             <td class="p-2">{$teacher->class_name}</td>
             <td class="p-2">{$teacher->classroom_name}</td>
-            <td class="p-2"><a href="edit">Edit</a></td>
-            <td class="p-2"><a href="Delete">Delete</a></td>
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" href="edit $teacher->teacher_id">Edit</a></td>
+            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" href="Delete! $teacher->teacher_id">Delete</a></td>
 		</tr>
 	{/foreach}
 	</tbody>
