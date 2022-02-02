@@ -3,6 +3,7 @@
 namespace App\Model\Repositories;
 
 use App;
+use Dibi\DateTime;
 use Nette;
 
 class ClassroomsRepository extends BaseRepository
@@ -13,6 +14,15 @@ class ClassroomsRepository extends BaseRepository
         $this->primaryKey = 'classroom_id';
         $this->alias = 'cr';
 
+    }
+
+    public function insert($data)
+    {
+        if (!isset($data['created'])){
+            $data['created'] = new DateTime();
+        }
+
+        return parent::insert($data);
     }
 
 }

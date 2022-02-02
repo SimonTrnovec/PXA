@@ -3,6 +3,7 @@
 namespace App\Model\Repositories;
 
 use App;
+use Dibi\DateTime;
 use Nette;
 
 class ClassesRepository extends BaseRepository
@@ -17,7 +18,9 @@ class ClassesRepository extends BaseRepository
 
     public function insert($data)
     {
-        $data['created'] = new DataTime();
+        if (!isset($data['created'])){
+            $data['created'] = new DateTime();
+        }
 
         return parent::insert($data);
     }

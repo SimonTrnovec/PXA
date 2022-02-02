@@ -1,4 +1,24 @@
 {extends '..//@backend.latte'}
 
 {block content}
-<h1>Trieda</h1>
+<table class="table-auto block text-slate-300 w-full justify-center p-5">
+    <thead class="bg-slate-700 font-medium">
+    <tr>
+        <th class="p-2">Trieda</th>
+        <th class="p-2"></th>
+        <th class="p-2"></th>
+    </tr>
+
+    </thead>
+    <tbody class="bg-slate-800">
+    {foreach $classes as $class}
+        <tr>
+            <td class="p-2">{$class->class_name}</td>
+
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="edit $class->class_id">Edit</a></td>
+            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" n:href="Delete! $class->class_id">Delete</a></td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>
+<a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" href="add">Add</a>
