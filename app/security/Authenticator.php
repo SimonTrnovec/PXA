@@ -7,6 +7,8 @@ use App;
 use Nette;
 use App\Model\Repositories\UsersRepository;
 use Nette\Security\AuthenticationException;
+use Nette\Security\Identity;
+use Nette\Security\Passwords;
 use Nette\Security\SimpleIdentity;
 
 final class Authenticator implements Nette\Security\Authenticator
@@ -16,16 +18,31 @@ final class Authenticator implements Nette\Security\Authenticator
      */
     private $repository;
 
-    public function __construct(UsersRepository $r)
+
+    private $passwords;
+
+    public function __construct(UsersRepository $r, Nette\Security\Passwords $passwords)
     {
         $this->repository = $r;
+        $this->passwords = $passwords;
     }
 
     public function authenticate(string $username, string $password): SimpleIdentity
     {
         $user = $this->repository->findPlain()->where('[us.name] = %s', $username)->fetch();
-        unset($user->password);
-        return new SimpleIdentity($user->user_id, null, (array) $user);
+
+        if (!$user) {
+            throw new Nette\Security\AuthenticationException('User not found.');
+        }
+
+
+        if (!$this->passwords->verify($password, $user->password)) {
+            throw new Nette\Security\AuthenticationException('Invalid password.');
+        }
+
+        return new SimpleIdentity($user->user_id, NULL, [
+            'name'  => $user->name,
+        ]);
 
 
 //        $login = $credentials[static::USERNAME];

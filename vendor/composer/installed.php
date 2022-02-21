@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f3a619a4a7423068f2cdc9ae325c8159c51ec50a',
+        'reference' => '580f5d0b3d799a42021adb5db39615f43e311c57',
         'name' => 'nette/web-project',
         'dev' => true,
     ),
@@ -215,12 +215,12 @@
             'dev_requirement' => false,
         ),
         'nette/security' => array(
-            'pretty_version' => 'v3.1.4',
-            'version' => '3.1.4.0',
+            'pretty_version' => 'v3.1.5',
+            'version' => '3.1.5.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nette/security',
             'aliases' => array(),
-            'reference' => 'a78bbb9d2260fffd898701b1ebdafcc797acb663',
+            'reference' => 'c120893f561b09494486c66594720b2abcb099b2',
             'dev_requirement' => false,
         ),
         'nette/tester' => array(
@@ -256,7 +256,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f3a619a4a7423068f2cdc9ae325c8159c51ec50a',
+            'reference' => '580f5d0b3d799a42021adb5db39615f43e311c57',
             'dev_requirement' => false,
         ),
         'symfony/config' => array(
