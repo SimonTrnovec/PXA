@@ -55,4 +55,11 @@ final class Authenticator implements Nette\Security\Authenticator
 //            'email' => $users->email,
 //            ]);
     }
+
+    public function getHash(string $password)
+    {
+        $hash = $this->passwords->hash($password);
+
+        return $hash;
+    }
 }

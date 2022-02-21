@@ -3,8 +3,8 @@
 namespace App\Model\Repositories;
 
 use App;
+use Dibi\DateTime;
 use Nette;
-use Nette\Utils\DateTime;
 
 class UsersRepository extends BaseRepository
 {
@@ -18,13 +18,11 @@ class UsersRepository extends BaseRepository
 
     public function insert($data)
     {
-        $data['created'] = new DataTime();
+        if (!isset($data['created'])){
+            $data['created'] = new DateTime();
+        }
 
         return parent::insert($data);
-    }
-
-    public function authenticate(string $email, string $password): SimpleIdentity{
-
     }
 
 }

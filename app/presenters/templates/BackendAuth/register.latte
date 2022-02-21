@@ -1,0 +1,28 @@
+{* This is the welcome page, you can delete it *}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title n:inner-snippet="title"> Web | Zasadací poriadok</title>
+
+    <link rel="stylesheet" href="{$basePath}/assets/styles/tailwind.css">
+
+</head>
+{*<div id="banner">*}
+{*	<h1 n:block=title>Congratulations!</h1>*}
+{*</div>*}
+<body class="bg-slate-900" >
+
+
+<div class="py-40 place-content-center" id="content">
+    <form class="mx-auto flex flex-col max-w-md space-y-5 justify-center p-5 bg-slate-800 rounded-md" n:name="registerForm">
+        <span class="font-medium text-slate-300 mb-5 w-min mx-auto text-2xl ">Registrácia</span>
+        <input n:name="name" class="text-slate-300 bg-slate-700 rounded-md px-4 py-2 font-medium "placeholder="Prihlasovacie meno">
+        <input n:name="email" class="text-slate-300 bg-slate-700 rounded-md px-4 py-2 font-medium "placeholder="E-mail">
+        <input n:name="password" class="text-slate-300 bg-slate-700 rounded-md px-4 py-2" placeholder="Heslo">
+        <button type="submit" class="bg-blue-400 block hover:bg-blue-900 mx-auto px-4 py-2 rounded-md">
+            Vytvoriť účet
+        </button>
+    </form>
+</div>
+</body>

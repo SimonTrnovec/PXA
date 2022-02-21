@@ -3,18 +3,21 @@
 namespace App\Presenters;
 
 use App;
+use App\Model\Repositories\StudentsRepository;
 use Nette;
 use Nette\Application\UI\Form;
 use App\Model\Repositories\UsersRepository;
+use Nette\Security\Authenticator;
 
 
 
 class BackendAuthPresenter extends Nette\Application\UI\Presenter
 {
     /**
-     * @var \App\Model\Repositories\UsersRepository
+     * @inject
+     * @var UsersRepository
      */
-    private $usersRepository;
+    public $usersRepository;
 
     /**
      * @inject
@@ -49,6 +52,44 @@ class BackendAuthPresenter extends Nette\Application\UI\Presenter
         } catch (Nette\Security\AuthenticationException $e) {
             $form->addError('Nesprávné přihlašovací jméno nebo heslo.');
         }
+
+    }
+
+    public function createComponentRegisterForm(): Form
+    {
+        $form = new Form;
+        $form->addText('name', 'Uživatelské jméno:')
+            ->setRequired('Prosím vyplňte své uživatelské jméno.');
+
+        $form->addText('email', 'Uživatelský E-mail:')
+            ->setRequired('Prosím vyplňte své uživatelské jméno.');
+
+        $form->addPassword('password', 'Heslo:')
+            ->setRequired('Prosím vyplňte své heslo.');
+
+        $form->addSubmit('send', 'Přihlásit');
+
+        $form->onSuccess[] = [$this, 'registerFormSucceeded'];
+        return $form;
+    }
+
+    public function registerFormSucceeded(Form $form, $values): void
+    {
+        $values = $form->getValues();
+
+        $password = $this->authenticator->getHash($values->password);
+
+        $userData = [
+            'name' => $values->name,
+            'email' => $values->email,
+            'password' => $password,
+        ];
+
+        $this->usersRepository->insert($userData);
+
+        $this->flashMessage('Účet bol vytvorený');
+
+        $this->redirect('login');
 
     }
 
