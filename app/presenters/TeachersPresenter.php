@@ -62,7 +62,7 @@ final class TeachersPresenter extends BasePresenter
         }
 
         $form->addSelect('class_id', 'Trieda', $clas)
-            ->setPrompt('-');;
+            ->setPrompt('Vyberte triedu');;
 
         $classrooms = $this->classroomsRepository->findAll()->fetchAll();
 
@@ -72,7 +72,7 @@ final class TeachersPresenter extends BasePresenter
         }
 
         $form->addSelect('classroom_id', 'Učebňa', $classroomavalible)
-            ->setPrompt('-');;
+            ->setPrompt('Vyberte učebňu');;
 
         return $form;
     }

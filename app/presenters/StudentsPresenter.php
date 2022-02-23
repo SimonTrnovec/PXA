@@ -51,7 +51,7 @@ final class StudentsPresenter extends BasePresenter
         }
 
         $form->addSelect('class_id', 'Trieda', $clas)
-            ->setPrompt('-');;
+            ->setPrompt('Vyberte triedu');;
 
         return $form;
     }
