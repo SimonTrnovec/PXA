@@ -15,7 +15,7 @@
     {foreach $classrooms as $classroom}
         <tr>
             <td class="p-2">{$classroom->classroom_name}</td>
-            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" href="detail">Zobraziť</a></td>
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="detail $classroom->classroom_id">Zobraziť</a></td>
             <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="edit $classroom->classroom_id">Edit</a></td>
             <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" n:href="Delete! $classroom->classroom_id">Delete</a></td>
         </tr>

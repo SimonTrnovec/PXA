@@ -1,18 +1,14 @@
 {extends '..//@backend.latte'}
   
 {block content}
-<div class="p-20 grid grid-rows-3 grid-flow-col gap-12 bg-slate-800 rounded-md mx-96 my-40">
-  <div class=" bg-slate-700 rounded-md">01</div>
-  <div class=" bg-slate-700 rounded-md">02</div>
-  <div class=" bg-slate-700 rounded-md">03</div>
-  <div class=" bg-slate-700 rounded-md">04</div>
-  <div class=" bg-slate-700 rounded-md">05</div>
-  <div class=" bg-slate-700 rounded-md">06</div>
-  <div class=" bg-slate-700 rounded-md">07</div>
-  <div class=" bg-slate-700 rounded-md">08</div>
-  <div class=" bg-slate-700 rounded-md">09</div>
-  <div class=" bg-slate-700 rounded-md">10</div>
-  <div class=" bg-slate-700 rounded-md">11</div>
-  <div class=" bg-slate-700 rounded-md">12</div>
+{foreach $classrooms as $classroom}
+<div class="p-20 grid grid-rows-{$classroom->height} grid-flow-col gap-12 bg-slate-800 rounded-md mx-96 my-40">
+  {dump $classroom->height}
+  {var $seats = $classroom->height * $classroom->width}
+  {for $i = 1; $i <= $seats; $i++}
+    <div class=" bg-slate-700 rounded-md">miesto č. {$i}</div>
+  {/for}
+  {/foreach}
+
 
 </div>

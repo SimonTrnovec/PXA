@@ -25,7 +25,9 @@ final class ClassroomsPresenter extends BasePresenter
     protected function createComponentClassroomForm(): Form
     {
         $form = new Form;
-        $form->addText('classroom_name', 'Názov učebňe');
+        $form->addText('classroom_name', 'Názov učebne');
+        $form->addText('height', 'Výška učebne');
+        $form->addText('width', 'Šírka učebne');
 
         return $form;
     }
@@ -69,6 +71,11 @@ final class ClassroomsPresenter extends BasePresenter
         return $form;
     }
 
+    public function actionDetail($id)
+    {
+        $this->template->classrooms = $this->classroomsRepository->findAll()->where('[cr.classroom_id] = %i' , $id)->fetchAll();
+    }
+
     public function classroomFormEditSucceeded($form)
     {
         $values = $form->getValues();
@@ -76,6 +83,8 @@ final class ClassroomsPresenter extends BasePresenter
 
         $classroomData = [
             'classroom_name' => $values->classroom_name,
+            'height'         => $values->height,
+            'width'          => $values->width,
         ];
 
         $this->classroomsRepository->update($classroomId, $classroomData);
@@ -101,6 +110,8 @@ final class ClassroomsPresenter extends BasePresenter
 
         $this->classroomsRepository->insert([
             'classroom_name'      => $values->classroom_name,
+            'height'              => $values->height,
+            'width'               => $values->width,
         ]);
 
         $this->flashMessage('Učebňa bola prdaná');
