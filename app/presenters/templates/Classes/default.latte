@@ -1,12 +1,12 @@
 {extends '..//@backend.latte'}
 
 {block content}
-<table class="table-auto block text-slate-300 w-full justify-center p-5">
+<table class="table-auto block text-slate-300 w-full justify-center p-5 mx-96 my-20">
     <thead class="bg-slate-700 font-medium">
     <tr>
         <th class="p-2">Trieda</th>
         <th class="p-2"></th>
-        <th class="p-2"></th>
+        <th class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" href="add">Add</a></th>
     </tr>
 
     </thead>
@@ -21,4 +21,3 @@
     {/foreach}
     </tbody>
 </table>
-<a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" href="add">Add</a>

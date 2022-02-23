@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '580f5d0b3d799a42021adb5db39615f43e311c57',
+        'reference' => '0f4a1791e6ff89283a7eb7a405ac6903858ec72d',
         'name' => 'nette/web-project',
         'dev' => true,
     ),
@@ -256,7 +256,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '580f5d0b3d799a42021adb5db39615f43e311c57',
+            'reference' => '0f4a1791e6ff89283a7eb7a405ac6903858ec72d',
             'dev_requirement' => false,
         ),
         'symfony/config' => array(
