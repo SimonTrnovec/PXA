@@ -1,0 +1,23 @@
+{extends '..//@backend.latte'}
+
+{block content}
+<table class="table-auto block text-slate-300 w-full justify-center p-5 mx-96 my-20">
+    <thead class="bg-slate-700 font-medium">
+    <tr>
+        <th class="p-2">Čas</th>
+        <th class="p-2"></th>
+        <th class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" href="add">Add</a></th>
+    </tr>
+
+    </thead>
+    <tbody class="bg-slate-800">
+    {foreach $times as $time}
+        <tr>
+            <td class="p-2">{$time->name}</td>
+
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="edit $time->time_id">Edit</a></td>
+            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" n:href="Delete! $time->time_id">Delete</a></td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

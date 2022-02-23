@@ -1,4 +1,13 @@
 {extends '..//@backend.latte'}
 
 {block content}
-{control classForm}
+<div class=" place-content-center p-5 mx-96" id="content">
+    <form class="mx-auto flex flex-col space-y-5 justify-center p-12 bg-slate-800 rounded-md" n:name="classForm" >
+        <span class="font-medium text-slate-300 mb-5 mx-auto text-2xl ">Pridať</span>
+        <input n:name="class_name" class="text-slate-300 bg-slate-700 rounded-md px-6 py-2 font-medium "  placeholder="Meno">
+        <button type="submit" class="bg-green-500 block hover:bg-blue-900 mx-auto px-6 py-2 rounded-md font-medium">
+            Pridať
+        </button>
+
+    </form>
+</div>
