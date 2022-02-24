@@ -24,7 +24,7 @@ final class SubjectsPresenter extends BasePresenter
     protected function createComponentSubjectForm(): Form
     {
         $form = new Form;
-        $form->addText('name', 'Predmet');
+        $form->addText('subject_name', 'Predmet');
 
         return $form;
     }
@@ -74,7 +74,7 @@ final class SubjectsPresenter extends BasePresenter
         $subjectId = $this->getParameter('id');
 
         $subjectData = [
-            'name' => $values->name,
+            'subject_name' => $values->subject_name,
         ];
 
         $this->subjectsRepository->update($subjectId, $subjectData);
@@ -101,7 +101,7 @@ final class SubjectsPresenter extends BasePresenter
         $values = $form->getValues();
 
         $this->subjectsRepository->insert([
-            'name'      => $values->name,
+            'subject_name'      => $values->subject_name,
         ]);
 
         $this->flashMessage('Predmet bol pridaný');

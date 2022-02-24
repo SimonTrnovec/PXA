@@ -118,14 +118,12 @@ final class StudentsPresenter extends BasePresenter
 
     $student = $this->getStudent($id);
 
-
     $this->studentsRepository->delete($student->student_id);
 
     $this->flashMessage('Študent bol zmazaný');
 
     $this->redirect('default');
 }
-
 
     public function StudentFormAddSucceeded(Form $form, $values): void
     {
@@ -142,10 +140,5 @@ final class StudentsPresenter extends BasePresenter
         $this->flashMessage('Študent bol pridaný');
 
         $this->redirect('default');
-
-
     }
-
-
-
 }

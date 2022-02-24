@@ -13,7 +13,7 @@
     <tbody class="bg-slate-800">
     {foreach $subjects as $subject}
         <tr>
-            <td class="p-2">{$subject->name}</td>
+            <td class="p-2">{$subject->subject_name}</td>
 
             <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="edit $subject->subject_id">Edit</a></td>
             <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" n:href="Delete! $subject->subject_id">Delete</a></td>

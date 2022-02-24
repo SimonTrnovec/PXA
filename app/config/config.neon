@@ -44,6 +44,7 @@ services:
     - App\Model\Repositories\SectionsRepository
     - App\Model\Repositories\UsersRepository
     - App\Model\Repositories\TimesRepository
+    - App\Model\Repositories\SeatsRepository
 
 #    @TODO usporiadat repozitare podla abecedy
 

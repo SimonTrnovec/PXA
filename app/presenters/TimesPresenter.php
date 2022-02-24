@@ -24,7 +24,7 @@ final class TimesPresenter extends BasePresenter
     protected function createComponentTimeForm(): Form
     {
         $form = new Form;
-        $form->addText('name', 'Čas');
+        $form->addText('time_name', 'Čas');
 
         return $form;
     }
@@ -74,7 +74,7 @@ final class TimesPresenter extends BasePresenter
         $timeId = $this->getParameter('id');
 
         $timeData = [
-            'name' => $values->name,
+            'time_name' => $values->time_name,
         ];
 
         $this->timesRepository->update($timeId, $timeData);
@@ -101,7 +101,7 @@ final class TimesPresenter extends BasePresenter
         $values = $form->getValues();
 
         $this->timesRepository->insert([
-            'name'      => $values->name,
+            'time_name'      => $values->time_name,
         ]);
 
         $this->flashMessage('Čas bol pridaný');

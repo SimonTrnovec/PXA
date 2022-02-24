@@ -6,13 +6,13 @@ use App;
 use Dibi\DateTime;
 use Nette;
 
-class TimetableRepository extends BaseRepository
+class SeatsRepository extends BaseRepository
 {
     protected function setup()
     {
-        $this->table = 'timetables';
-        $this->primaryKey = 'timetable_id';
-        $this->alias = 'tt';
+        $this->table = 'seats';
+        $this->primaryKey = 'seat_id';
+        $this->alias = 'se';
 
     }
 
@@ -24,5 +24,6 @@ class TimetableRepository extends BaseRepository
 
         return parent::insert($data);
     }
+
 
 }
