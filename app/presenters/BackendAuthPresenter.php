@@ -25,6 +25,15 @@ class BackendAuthPresenter extends Nette\Application\UI\Presenter
      */
     public $authenticator;
 
+    protected function startup()
+    {
+        parent::startup();
+
+        if($this->user->isLoggedIn()){
+            $this->redirect('Homepage:default');
+        }
+    }
+
     public function createComponentLoginForm(): Form
     {
         $form = new Form;

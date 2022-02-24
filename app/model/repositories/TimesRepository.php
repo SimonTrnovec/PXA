@@ -6,13 +6,13 @@ use App;
 use Dibi\DateTime;
 use Nette;
 
-class SubjectsRepository extends BaseRepository
+class TimesRepository extends BaseRepository
 {
     protected function setup()
     {
-        $this->table = 'subjects';
-        $this->primaryKey = 'subject_id';
-        $this->alias = 'su';
+        $this->table = 'times';
+        $this->primaryKey = 'time_id';
+        $this->alias = 'tm';
 
     }
 
@@ -24,5 +24,6 @@ class SubjectsRepository extends BaseRepository
 
         return parent::insert($data);
     }
+
 
 }

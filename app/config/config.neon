@@ -34,7 +34,7 @@ services:
     # repositories
     - App\Model\Repositories\ClassesRepository
     - App\Model\Repositories\ClassroomsRepository
-    - App\Model\Repositories\SeatPlansRepository
+    - App\Model\Repositories\TimetableRepository
     - App\Model\Repositories\StudentsRepository
     - App\Model\Repositories\SubjectsRepository
     - App\Model\Repositories\TeachersRepository
@@ -43,6 +43,7 @@ services:
     - App\Model\Repositories\CustomersRepository
     - App\Model\Repositories\SectionsRepository
     - App\Model\Repositories\UsersRepository
+    - App\Model\Repositories\TimesRepository
 
 #    @TODO usporiadat repozitare podla abecedy
 
