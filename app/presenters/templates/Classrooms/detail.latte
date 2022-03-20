@@ -2,7 +2,7 @@
   
 {block content}
 {foreach $classrooms as $classroom}
-<div class="p-20 grid grid-rows-{$classroom->height} grid-flow-col gap-9 bg-slate-800 rounded-md mx-36 my-20">
+<div class="p-20 grid grid-flow-col gap-9 bg-slate-800 rounded-md mx-36 my-20" style="grid-template-rows: repeat({$classroom->height}, minmax(0, 1fr))">
   {var $seats = $classroom->height * $classroom->width}
   {for $i = 1; $i <= $seats; $i++}
     <div class=" bg-slate-700 rounded-md font-medium text-slate-300">miesto č. {$i}</div>
