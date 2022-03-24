@@ -131,8 +131,14 @@ final class TimetablePresenter extends BasePresenter
             $sit[$student->student_id] = $student->name;
         }
 
-        $form->addSelect('student_id', 'Miesto', $sit)
-            ->setPrompt('Vyberte žiaka');
+        $seatsContainer = $form->addContainer('seatsContainer');
+
+        $seats = $this->getSeats($this->getParameter('id'));
+        foreach ($seats as $seat) {
+            $seatsContainer->addSelect($seat->seat_id, 'Miesto', $sit)
+                ->setPrompt('Vyberte žiaka');
+        }
+
 
         return $form;
     }
@@ -167,7 +173,7 @@ final class TimetablePresenter extends BasePresenter
         return $seats;
     }
 
-    public function actionEdit($id): Form
+    public function actionEdit($id)
     {
         $timetable = $this->getTimetable($id);
         $seats = $this->getSeats($id);
@@ -193,21 +199,16 @@ final class TimetablePresenter extends BasePresenter
 
         $this->template->students = $this->studentsRepository->findAll()->fetchAll();
 
-        $seats = $this->seatsRepository->findAll()
-            ->where('[se.timetable_id] = %i' , $id)
-            ->select('[st.name], [st.surname]')
-            ->leftJoin('[students] st')
-            ->on('[se.student_id] = [st.student_id]')->orderBy(['order'])
-            ->fetchAll();
+        $seats = $this->getSeats($id);
+
+        $seatsContainer = $form['seatsContainer'];
         foreach ($seats as $seat){
             $seatsContainer[$seat->seat_id]->setDefaultValue($seat->student_id);
         }
+
         $form->setDefaults($timetable);
         $form->addSubmit('ok', 'Upraviť');
         $form->onSuccess[] = [$this, 'timetableFormEditSucceeded'];
-
-
-        return $form;
     }
 
     public function actionAdd($id): Form
@@ -252,13 +253,13 @@ final class TimetablePresenter extends BasePresenter
             'time_id'        => $values->time_id,
         ];
 
-        $seatData = [
-            'student_id' => $values->student_id,
-        ];
-
         $this->timetableRepository->update($timetableId, $timetableData);
 
-        $this->seatsRepository->update($seatId, $seatData);
+        $seatsContainerData = $values->seatsContainer;
+        $seats = $this->getSeats($this->getParameter('id'));
+        foreach ($seats as $seat) {
+            $this->seatsRepository->update($seat->seat_id, ['student_id' => $seatsContainerData[$seat->seat_id]]);
+        }
 
         $this->flashMessage('Rozvrh bol upravený');
         $this->redirect('default');
