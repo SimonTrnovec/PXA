@@ -42,6 +42,7 @@ final class Authenticator implements Nette\Security\Authenticator
 
         return new SimpleIdentity($user->user_id, NULL, [
             'name'  => $user->name,
+            'admin'  => $user->admin,
         ]);
 
 

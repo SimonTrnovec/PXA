@@ -11,8 +11,10 @@
     <th class="p-2">Predmet</th>
     <th class="p-2">Čas</th>
     <th class="p-2"></th>
-    <th class="p-2"></th>
-    <th class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" href="add">Add</a></th>
+    {if $isAdmin}
+      <th class="p-2"></th>
+      <th class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" href="add">Add</a></th>
+    {/if}
   </tr>
 
   </thead>
@@ -25,8 +27,10 @@
       <td class="p-2">{$timetable->subject_name}</td>
       <td class="p-2">{$timetable->time_name}</td>
       <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" n:href="detail $timetable->timetable_id">Zobraziť</a></td>
-      <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="edit $timetable->timetable_id">Edit</a></td>
-      <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" n:href="Delete! $timetable->timetable_id">Delete</a></td>
+      {if $isAdmin}
+        <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2" n:href="edit $timetable->timetable_id">Edit</a></td>
+        <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2" n:href="Delete! $timetable->timetable_id">Delete</a></td>
+      {/if}
     </tr>
   {/foreach}
   </tbody>

@@ -74,7 +74,7 @@ final class TimetablePresenter extends BasePresenter
             ->fetchAll();
     }
 
-    protected function createComponentTimetableForm(): Form
+    protected function createComponentTimetableAddForm(): Form
     {
         $form = new Form;
         $form->addText('timetable_name', 'Názov Rozvrhu');
@@ -131,12 +131,72 @@ final class TimetablePresenter extends BasePresenter
             $sit[$student->student_id] = $student->name;
         }
 
+        return $form;
+    }
+
+    protected function createComponentTimetableEditForm(): Form
+    {
+        $form = new Form;
+        $form->addText('timetable_name', 'Názov Rozvrhu');
+
+        $classes = $this->classesRepository->findAll()->fetchAll();
+
+        $clas = [];
+        foreach ($classes as $class){
+            $clas[$class->class_id] = $class->class_name;
+        }
+
+        $classrooms = $this->classroomsRepository->findAll()->fetchAll();
+
+        $classrom = [];
+
+        foreach ($classrooms as $classroom){
+            $classrom[$classroom->classroom_id] = $classroom->classroom_name;
+        }
+
+        $subjects = $this->subjectsRepository->findAll()->fetchAll();
+
+        $subj = [];
+
+        foreach ($subjects as $subject){
+            $subj[$subject->subject_id] = $subject->subject_name;
+        }
+
+        $times = $this->timesRepository->findAll()->fetchAll();
+
+
+        $thime = [];
+
+        foreach ($times as $time){
+            $thime[$time->time_id] = $time->time_name;
+        }
+
+        $form->addSelect('class_id', 'Trieda', $clas)
+            ->setPrompt('Vyberte triedu');
+
+        $form->addSelect('classroom_id', 'Ucebna', $classrom)
+            ->setPrompt('Vyberte ucebnu');
+
+        $form->addSelect('subject_id', 'Predmet', $subj)
+            ->setPrompt('Vyberte Predmet');
+
+        $form->addSelect('time_id', 'Čas', $thime)
+            ->setPrompt('Vyberte Čas');
+
+        $students = $this->studentsRepository->findAll()->fetchAll();
+
+        $sit = [];
+
+        foreach ($students as $student){
+            $sit[$student->student_id] = $student->name;
+        }
+
         $seatsContainer = $form->addContainer('seatsContainer');
 
         $seats = $this->getSeats($this->getParameter('id'));
         foreach ($seats as $seat) {
             $seatsContainer->addSelect($seat->seat_id, 'Miesto', $sit)
-                ->setPrompt('Vyberte žiaka');
+                ->setPrompt('-');
         }
 
 
@@ -179,7 +239,7 @@ final class TimetablePresenter extends BasePresenter
         $seats = $this->getSeats($id);
 
         /** @var  \Nette\Application\UI\Form $form */
-        $form = $this['timetableForm'];
+        $form = $this['timetableEditForm'];
 
         $this->template->timetable = $timetable;
 
@@ -211,10 +271,10 @@ final class TimetablePresenter extends BasePresenter
         $form->onSuccess[] = [$this, 'timetableFormEditSucceeded'];
     }
 
-    public function actionAdd($id): Form
+    public function actionAdd()
     {
         /** @var  \Nette\Application\UI\Form $form */
-        $form = $this['timetableForm'];
+        $form = $this['timetableAddForm'];
 
         $form->addSubmit('ok', 'Pridať');
         $form->onSuccess[] = [$this, 'timetableFormAddSucceeded'];
