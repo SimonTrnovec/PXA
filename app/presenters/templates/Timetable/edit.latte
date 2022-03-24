@@ -18,11 +18,16 @@
 
     {foreach $timetables as $classroom}
 <div class="p-20 grid grid-flow-col gap-9 bg-slate-800 rounded-md mx-36 my-20" style="grid-template-rows: repeat({$classroom->height}, minmax(0, 1fr))">
+
         {var $set = $classroom->height * $classroom->width}
         {foreach $seats as $seat}
-            <div class=" bg-slate-700 rounded-md font-medium text-slate-300">{$seat->order}. {$seat->name} {$seat->surname}</div>
+            <form n:name="timetableForm">
+                <select n:name="student_id"  class=" bg-slate-700 rounded-md font-medium text-slate-300"></select>
+            </form>
+{*            {dump $seat->student_id}*}
         {/foreach}
         {/foreach}
         {dump $seats}
+
 
 </div>

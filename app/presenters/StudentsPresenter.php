@@ -84,7 +84,7 @@ final class StudentsPresenter extends BasePresenter
         return $form;
     }
 
-    public function actionAdd($id): Form
+    public function actionAdd(): Form
     {
         /** @var  \Nette\Application\UI\Form $form */
         $form = $this['studentForm'];

@@ -123,6 +123,20 @@ final class TimetablePresenter extends BasePresenter
         $form->addSelect('time_id', 'Čas', $thime)
              ->setPrompt('Vyberte Čas');
 
+        $students = $this->studentsRepository->findAll()->fetchAll();
+
+        $seats = $this->seatsRepository->findAll()->fetchAll();
+
+
+        $sit = [];
+
+        foreach ($students as $student){
+            $sit[$student->student_id] = $student->name;
+        }
+
+        $form->addSelect('student_id', 'Miesto', $sit)
+            ->setPrompt('Vyberte žiaka');
+
         return $form;
     }
 
@@ -138,9 +152,28 @@ final class TimetablePresenter extends BasePresenter
         return $timetable;
     }
 
+    private function getSeats($id)
+    {
+
+        $seats = $this->seatsRepository->findAll()
+            ->where('[se.timetable_id] = %i' , $id)
+            ->select('[st.name], [st.surname]')
+            ->leftJoin('[students] st')
+            ->on('[se.student_id] = [st.student_id]')->orderBy(['order'])
+            ->fetchAll();
+
+        if (!$seats){
+            $this->flashMessage('Miesto neexistuje.', 'error');
+            $this->redirect('default');
+        }
+
+        return $seats;
+    }
+
     public function actionEdit($id): Form
     {
         $timetable = $this->getTimetable($id);
+        $seats = $this->getSeats($id);
 
         /** @var  \Nette\Application\UI\Form $form */
         $form = $this['timetableForm'];
@@ -161,27 +194,18 @@ final class TimetablePresenter extends BasePresenter
             ->on('[se.student_id] = [st.student_id]')->orderBy(['order'])
             ->fetchAll();
 
+        $this->template->students = $this->studentsRepository->findAll()->fetchAll();
+
         $seats = $this->seatsRepository->findAll()
             ->where('[se.timetable_id] = %i' , $id)
             ->select('[st.name], [st.surname]')
             ->leftJoin('[students] st')
             ->on('[se.student_id] = [st.student_id]')->orderBy(['order'])
             ->fetchAll();
-
-        $students = $this->studentsRepository->findAll()->fetchAll();
-
-
-        $sit = [];
-
-        foreach ($students as $student){
-            $sit[$student->student_id] = $student->name;
+        foreach ($seats as $seat){
+            $form->setDefaults($seat);
+            dump($seat);
         }
-
-
-            $form->addSelect('student_id', 'Ucebna', $sit)
-                ->setPrompt('Vyberte žiaka');
-
-
         $form->setDefaults($timetable);
         $form->addSubmit('ok', 'Upraviť');
         $form->onSuccess[] = [$this, 'timetableFormEditSucceeded'];
