@@ -125,9 +125,6 @@ final class TimetablePresenter extends BasePresenter
 
         $students = $this->studentsRepository->findAll()->fetchAll();
 
-        $seats = $this->seatsRepository->findAll()->fetchAll();
-
-
         $sit = [];
 
         foreach ($students as $student){
@@ -203,8 +200,7 @@ final class TimetablePresenter extends BasePresenter
             ->on('[se.student_id] = [st.student_id]')->orderBy(['order'])
             ->fetchAll();
         foreach ($seats as $seat){
-            $form->setDefaults($seat);
-            dump($seat);
+            $seatsContainer[$seat->seat_id]->setDefaultValue($seat->student_id);
         }
         $form->setDefaults($timetable);
         $form->addSubmit('ok', 'Upraviť');
