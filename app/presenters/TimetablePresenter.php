@@ -119,6 +119,8 @@ final class TimetablePresenter extends BasePresenter
         $form->addSelect('time_id', 'Čas', $thime)
             ->setPrompt('Vyberte Čas');
 
+        $form->setDefaults($this->filter);
+
         $form->addSubmit('ok', 'Filtrovať');
         $form->addSubmit('cancel', 'Zrušiť');
 
@@ -354,6 +356,10 @@ final class TimetablePresenter extends BasePresenter
 
     public function actionEdit($id)
     {
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+
         $timetable = $this->getTimetable($id);
         $seats = $this->getSeats($id);
 
@@ -392,6 +398,10 @@ final class TimetablePresenter extends BasePresenter
 
     public function actionAdd()
     {
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+
         /** @var  \Nette\Application\UI\Form $form */
         $form = $this['timetableAddForm'];
 
@@ -445,6 +455,10 @@ final class TimetablePresenter extends BasePresenter
     }
 
     public function handleDelete($id){
+
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
 
         $timetable = $this->getTimetable($id);
 
