@@ -304,7 +304,7 @@ final class TimetablePresenter extends BasePresenter
             'class_id' => $classValues->class_id,
         ];
 
-        $students = $this->studentsRepository->findAll()->where('[st.class_id] = %i', $classId)->fetchAll();
+        $students = $this->studentsRepository->findAll()->where('[st.class_id] = %i', $classId)->orderBy('[st.name] ASC')->fetchAll();
 
         $sit = [];
 
