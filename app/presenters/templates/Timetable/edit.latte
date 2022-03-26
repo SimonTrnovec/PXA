@@ -2,23 +2,11 @@
 
 {block content}
 {form timetableEditForm}
-<div class=" place-content-center p-5 mx-96" id="content">
-    <div class="mx-auto flex flex-col space-y-5 justify-center p-12 bg-slate-800 rounded-md">
-        <span class="font-medium text-slate-300 mb-5 mx-auto text-2xl ">Upraviť</span>
-        <input n:name="timetable_name" class="text-slate-300 bg-slate-700 rounded-md px-6 py-2 font-medium " placeholder="Názov rozvrhu">
-        <select n:name="class_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"></select>
-        <select n:name="classroom_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"></select>
-        <select n:name="subject_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"></select>
-        <select n:name="time_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"></select>
-        <button type="submit" class="bg-green-500 block hover:bg-blue-900 mx-auto px-6 py-2 rounded-md font-medium" >
-            Upraviť
-        </button>
 
-    </div>
-</div>
-
+    <h1 class="mx-36 my-20 text-slate-300 text-slate-300 bg-slate-700 rounded-md px-6 py-2 font-medium flex justify-center">Tabuľa</h1>
     {foreach $timetables as $classroom}
 <div class="p-20 grid grid-flow-col gap-9 bg-slate-800 rounded-md mx-36 my-20" style="grid-template-rows: repeat({$classroom->height}, minmax(0, 1fr))">
+
 
 {*        {var $set = $classroom->height * $classroom->width}*}
 
@@ -31,5 +19,12 @@
         {/formContainer}
 
         {/foreach}
+</div>
+    <div class=" place-content-center p-5 mx-96" id="content">
+    <div class="mx-auto flex flex-col space-y-5 justify-center p-12 bg-slate-800 rounded-md">
+        <button type="submit" class="bg-green-500 block hover:bg-blue-900 mx-auto px-6 py-2 rounded-md font-medium" >
+            Upraviť
+        </button>
+    </div>
 </div>
 {/form}

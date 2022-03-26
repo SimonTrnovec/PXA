@@ -15,6 +15,15 @@ final class TimesPresenter extends BasePresenter
      */
     public $timesRepository;
 
+    public function startup()
+    {
+        parent::startup();
+
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+    }
+
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();

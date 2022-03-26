@@ -1,6 +1,7 @@
 {extends '..//@backend.latte'}
   
 {block content}
+<h1 class="mx-36 my-20 text-slate-300 text-slate-300 bg-slate-700 rounded-md px-6 py-2 font-medium flex justify-center">Tabuľa</h1>
 {foreach $classrooms as $classroom}
 <div class="p-20 grid grid-flow-col gap-9 bg-slate-800 rounded-md mx-36 my-20" style="grid-template-rows: repeat({$classroom->height}, minmax(0, 1fr))">
   {var $seats = $classroom->height * $classroom->width}

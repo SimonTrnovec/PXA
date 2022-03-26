@@ -15,6 +15,15 @@ final class SubjectsPresenter extends BasePresenter
      */
     public $subjectsRepository;
 
+    public function startup()
+    {
+        parent::startup();
+
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+    }
+
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();

@@ -16,6 +16,15 @@ final class ClassesPresenter extends BasePresenter
      */
     public $classesRepository;
 
+    public function startup()
+    {
+        parent::startup();
+
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+    }
+
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();

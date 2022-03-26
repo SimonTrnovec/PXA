@@ -27,6 +27,22 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     {
         $user = $this->getUser();
         $isAdmin = $user->getIdentity()->admin;
+        if ($isAdmin == ADMIN){
+
+        } else{
+            die;
+        }
+    }
+
+    public function isTeacher()
+    {
+        $user = $this->getUser();
+        $isAdmin = $user->getIdentity()->admin;
+        if ($isAdmin >= TEACHER){
+
+        } else{
+            die;
+        }
     }
 
     public function handleLogout()

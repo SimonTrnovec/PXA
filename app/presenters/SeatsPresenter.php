@@ -7,6 +7,14 @@ use Nette;
 
 final class SeatsPresenter extends BasePresenter
 {
+    public function startup()
+    {
+        parent::startup();
+
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+    }
 
     public function actionDefault(){
         parent::startup();

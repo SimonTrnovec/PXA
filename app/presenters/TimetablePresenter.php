@@ -296,7 +296,13 @@ final class TimetablePresenter extends BasePresenter
         $form->addSelect('time_id', 'Čas', $thime)
             ->setPrompt('Vyberte Čas');
 
-        $students = $this->studentsRepository->findAll()->fetchAll();
+        $classValues = $this->getTimetable($this->getParameter('id'));
+
+        $classId = [
+            'class_id' => $classValues->class_id,
+        ];
+
+        $students = $this->studentsRepository->findAll()->where('[st.class_id] = %i', $classId)->fetchAll();
 
         $sit = [];
 

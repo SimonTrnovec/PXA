@@ -17,6 +17,15 @@ final class AdminsPresenter extends BasePresenter
      */
     public $userRepository;
 
+    public function startup()
+    {
+        parent::startup();
+
+        if($this->isAdmin()){
+            $this->redirect('BackendAuth:login');
+        }
+    }
+
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();
