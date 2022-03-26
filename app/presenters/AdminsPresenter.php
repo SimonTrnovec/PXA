@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 use App\Model\Repositories\UsersRepository;
+use App\Model\Repositories\RoleStatesEnum;
 
 use Nette;
 use Nette\Application\UI\Form;
@@ -20,6 +21,7 @@ final class AdminsPresenter extends BasePresenter
         parent::startup();
         $this->template->user = $this->getUser();
         $this->template->admins = $this->userRepository->findAll()->fetchAll();
+        $this->template->role = RoleStatesEnum::getItems();
 
 
 
@@ -32,7 +34,7 @@ final class AdminsPresenter extends BasePresenter
 
         $form->addEmail('email', 'E-mail');
 
-        $form->addText('admin', 'rola');
+        $form->addSelect('admin', 'rola',  RoleStatesEnum::getItems());
 
         return $form;
     }

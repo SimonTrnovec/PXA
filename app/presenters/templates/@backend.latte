@@ -66,7 +66,8 @@
 						 block px-4 py-2 rounded-md" style=" width: 160px; ">
 							Rozvh
 						</a>
-					{if $isAdmin <= 2}
+					{if $isAdmin >= 2}
+						<p>Nastavenia</p>
 						<a n:href="Admins:" type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 text-slate-300
 						 block px-4 py-2 rounded-md" style=" width: 160px; ">
 							Uživatelia

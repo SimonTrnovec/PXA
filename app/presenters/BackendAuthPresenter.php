@@ -68,13 +68,13 @@ class BackendAuthPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Form;
         $form->addText('name', 'Uživatelské jméno:')
-            ->setRequired('Prosím vyplňte své uživatelské jméno.');
+            ->setRequired('Prosím vyplňte svoje uživateľské meno.');
 
-        $form->addText('email', 'Uživatelský E-mail:')
-            ->setRequired('Prosím vyplňte své uživatelské jméno.');
+        $form->addEmail('email', 'Uživatelský E-mail:')
+            ->setRequired('Prosím vyplňte svoje E-mail.');
 
         $form->addPassword('password', 'Heslo:')
-            ->setRequired('Prosím vyplňte své heslo.');
+            ->setRequired('Prosím vyplňte svoje heslo.');
 
         $form->addSubmit('send', 'Přihlásit');
 

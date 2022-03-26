@@ -1,7 +1,31 @@
 {extends '..//@backend.latte'}
 
 {block content}
-
+{form filterForm}
+  {control filterForm errors}
+  <div>
+    <div >
+{*      {label class_id /}*}
+      {input class_id 'class' => 'class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    </div>
+    <div>
+{*      {label classroom_id /}*}
+      {input classroom_id 'class' => 'class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    </div>
+    <div>
+{*      {label subject_id /}*}
+      {input subject_id 'class' => 'class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    </div>
+    <div>
+{*      {label time_id /}*}
+      {input time_id 'class' => 'class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    </div>
+  </div>
+  <div>
+    {input ok 'class' => 'class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    {input cancel 'class' => 'class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+  </div>
+{/form}
 <table class="table-auto block text-slate-300 w-full justify-center p-5 mx-56 my-20">
   <thead class="bg-slate-700 font-medium">
   <tr>
@@ -35,3 +59,4 @@
   {/foreach}
   </tbody>
 </table>
+
