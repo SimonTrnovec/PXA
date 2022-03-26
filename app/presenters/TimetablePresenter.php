@@ -431,18 +431,6 @@ final class TimetablePresenter extends BasePresenter
     public function timetableFormEditSucceeded($form)
     {
         $values = $form->getValues();
-        $timetableId = $this->getParameter('id');
-        $seatId = $this->getParameter('id');
-
-        $timetableData = [
-            'timetable_name' => $values->timetable_name,
-            'class_id'       => $values->class_id,
-            'classroom_id'   => $values->classroom_id,
-            'subject_id'     => $values->subject_id,
-            'time_id'        => $values->time_id,
-        ];
-
-        $this->timetableRepository->update($timetableId, $timetableData);
 
         $seatsContainerData = $values->seatsContainer;
         $seats = $this->getSeats($this->getParameter('id'));
