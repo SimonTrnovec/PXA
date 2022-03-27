@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 use App\Model\Repositories\SubjectsRepository;
+use Dibi\Row;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -15,6 +16,17 @@ final class SubjectsPresenter extends BasePresenter
      */
     public $subjectsRepository;
 
+    /**
+     * @persistent
+     * @var array
+     */
+    public $filter = [];
+
+    /**
+     * @var Row
+     */
+    protected $items = [];
+
     public function startup()
     {
         parent::startup();
@@ -27,7 +39,55 @@ final class SubjectsPresenter extends BasePresenter
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();
-        $this->template->subjects = $this->subjectsRepository->findAll()->fetchAll();
+        $itemsQuery = $this->subjectsRepository->findAll();
+
+        if (isset($this->filter['subject_name'])) {
+            $itemsQuery->where('[su.subject_name] LIKE %~like~', $this->filter['subject_name']);
+        }
+
+        $this->items = $itemsQuery->fetchAssoc('subject_id');
+    }
+
+    public function renderDefault()
+    {
+        $this->template->subjects = $this->items;
+    }
+
+    protected function createComponentFilterForm()
+    {
+        $form = new Form;
+
+        $form->addGroup();
+
+        $form->addTExt('subject_name', 'Predmet');
+
+        $form->setDefaults($this->filter);
+
+        $form->addSubmit('ok', 'Filtrovať');
+        $form->addSubmit('cancel', 'Zrušiť');
+
+        $form->onSuccess[] = [$this, 'filterFormSucceeded'];
+
+        return $form;
+    }
+
+    public function filterFormSucceeded($form)
+    {
+        if($form['cancel']->isSubmittedBy()) {
+            $this->redirect('default', [
+                'filter'    => NULL,
+            ]);
+        } else {
+            $values = $form->getValues();
+
+            $filteredValues = array_filter((array) $values);
+
+
+            $this->redirect('default', [
+                'filter'    => $filteredValues,
+            ]);
+        }
+
     }
 
     protected function createComponentSubjectForm(): Form

@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Model\Repositories\ClassroomsRepository;
+use Dibi\Row;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -16,6 +17,17 @@ final class ClassroomsPresenter extends BasePresenter
      */
     public $classroomsRepository;
 
+    /**
+     * @persistent
+     * @var array
+     */
+    public $filter = [];
+
+    /**
+     * @var Row
+     */
+    protected $items = [];
+
     public function startup()
     {
         parent::startup();
@@ -28,7 +40,55 @@ final class ClassroomsPresenter extends BasePresenter
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();
-        $this->template->classrooms = $this->classroomsRepository->findAll()->fetchAll();
+        $itemsQuery = $this->classroomsRepository->findAll();
+
+        if (isset($this->filter['classroom_name'])) {
+            $itemsQuery->where('[cr.classroom_name] LIKE %~like~', $this->filter['classroom_name']);
+        }
+
+        $this->items = $itemsQuery->fetchAssoc('classroom_id');
+    }
+
+    public function renderDefault()
+    {
+        $this->template->classrooms = $this->items;
+    }
+
+    protected function createComponentFilterForm()
+    {
+        $form = new Form;
+
+        $form->addGroup();
+
+        $form->addText('classroom_name', 'Názov učebne');
+
+        $form->setDefaults($this->filter);
+
+        $form->addSubmit('ok', 'Filtrovať');
+        $form->addSubmit('cancel', 'Zrušiť');
+
+        $form->onSuccess[] = [$this, 'filterFormSucceeded'];
+
+        return $form;
+    }
+
+    public function filterFormSucceeded($form)
+    {
+        if($form['cancel']->isSubmittedBy()) {
+            $this->redirect('default', [
+                'filter'    => NULL,
+            ]);
+        } else {
+            $values = $form->getValues();
+
+            $filteredValues = array_filter((array) $values);
+
+
+            $this->redirect('default', [
+                'filter'    => $filteredValues,
+            ]);
+        }
+
     }
 
     protected function createComponentClassroomForm(): Form

@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 use App\Model\Repositories\TimesRepository;
+use Dibi\Row;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -15,6 +16,17 @@ final class TimesPresenter extends BasePresenter
      */
     public $timesRepository;
 
+    /**
+     * @persistent
+     * @var array
+     */
+    public $filter = [];
+
+    /**
+     * @var Row
+     */
+    protected $items = [];
+
     public function startup()
     {
         parent::startup();
@@ -27,7 +39,64 @@ final class TimesPresenter extends BasePresenter
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();
-        $this->template->times = $this->timesRepository->findAll()->fetchAll();
+        $itemsQuery = $this->timesRepository->findAll();
+
+        if (isset($this->filter['time_id'])) {
+            $itemsQuery->where('[tm.time_id] LIKE %~like~', $this->filter['time_id']);
+        }
+
+        $this->items = $itemsQuery->fetchAssoc('time_id');
+    }
+
+    public function renderDefault()
+    {
+        $this->template->times = $this->items;
+    }
+
+    protected function createComponentFilterForm()
+    {
+        $form = new Form;
+
+        $form->addGroup();
+
+        $times = $this->timesRepository->findAll()->fetchAll();
+
+        $thime = [];
+
+        foreach ($times as $time){
+            $thime[$time->time_id] = $time->time_name;
+        }
+
+        $form->addSelect('time_id', 'Čas', $thime)
+            ->setPrompt('Vyberte Čas');
+
+        $form->setDefaults($this->filter);
+
+        $form->addSubmit('ok', 'Filtrovať');
+        $form->addSubmit('cancel', 'Zrušiť');
+
+        $form->onSuccess[] = [$this, 'filterFormSucceeded'];
+
+        return $form;
+    }
+
+    public function filterFormSucceeded($form)
+    {
+        if($form['cancel']->isSubmittedBy()) {
+            $this->redirect('default', [
+                'filter'    => NULL,
+            ]);
+        } else {
+            $values = $form->getValues();
+
+            $filteredValues = array_filter((array) $values);
+
+
+            $this->redirect('default', [
+                'filter'    => $filteredValues,
+            ]);
+        }
+
     }
 
     protected function createComponentTimeForm(): Form

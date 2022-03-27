@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Model\Repositories\ClassesRepository;
+use Dibi\Row;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -16,6 +17,17 @@ final class ClassesPresenter extends BasePresenter
      */
     public $classesRepository;
 
+    /**
+     * @persistent
+     * @var array
+     */
+    public $filter = [];
+
+    /**
+     * @var Row
+     */
+    protected $items = [];
+
     public function startup()
     {
         parent::startup();
@@ -28,7 +40,55 @@ final class ClassesPresenter extends BasePresenter
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();
-        $this->template->classes = $this->classesRepository->findAll()->fetchAll();
+        $itemsQuery = $this->classesRepository->findAll();
+
+        if (isset($this->filter['class_name'])) {
+            $itemsQuery->where('[cl.class_name] LIKE %~like~', $this->filter['class_name']);
+        }
+
+        $this->items = $itemsQuery->fetchAssoc('class_id');
+    }
+
+    public function renderDefault()
+    {
+        $this->template->classes = $this->items;
+    }
+
+    protected function createComponentFilterForm()
+    {
+        $form = new Form;
+
+        $form->addGroup();
+
+        $form->addText('class_name', 'Názov Triedy');
+
+        $form->setDefaults($this->filter);
+
+        $form->addSubmit('ok', 'Filtrovať');
+        $form->addSubmit('cancel', 'Zrušiť');
+
+        $form->onSuccess[] = [$this, 'filterFormSucceeded'];
+
+        return $form;
+    }
+
+    public function filterFormSucceeded($form)
+    {
+        if($form['cancel']->isSubmittedBy()) {
+            $this->redirect('default', [
+                'filter'    => NULL,
+            ]);
+        } else {
+            $values = $form->getValues();
+
+            $filteredValues = array_filter((array) $values);
+
+
+            $this->redirect('default', [
+                'filter'    => $filteredValues,
+            ]);
+        }
+
     }
 
     protected function createComponentClassForm(): Form

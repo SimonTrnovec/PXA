@@ -178,8 +178,6 @@ final class TimetablePresenter extends BasePresenter
 
         $this->items = $itemsQuery->fetchAssoc('timetable_id');
 
-
-
     }
 
     public function renderDefault()
@@ -227,15 +225,6 @@ final class TimetablePresenter extends BasePresenter
         $form->addSelect('class_id', 'Trieda', $clas)
              ->setPrompt('Vyberte Triedu');
 
-        $form->addSelect('classroom_id', 'Ucebna', $classrom)
-             ->setPrompt('Vyberte Učebňu')
-             ->setRequired('Prosím vyberte učebnu.');
-
-        $form->addSelect('subject_id', 'Predmet', $subj)
-             ->setPrompt('Vyberte Predmet');
-
-        $form->addSelect('time_id', 'Čas', $thime)
-             ->setPrompt('Vyberte Čas');
 
         $students = $this->studentsRepository->findAll()->fetchAll();
 
