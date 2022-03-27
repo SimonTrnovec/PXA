@@ -225,10 +225,11 @@ final class TimetablePresenter extends BasePresenter
         }
 
         $form->addSelect('class_id', 'Trieda', $clas)
-             ->setPrompt('Vyberte triedu');
+             ->setPrompt('Vyberte Triedu');
 
         $form->addSelect('classroom_id', 'Ucebna', $classrom)
-             ->setPrompt('Vyberte ucebnu');
+             ->setPrompt('Vyberte Učebňu')
+             ->setRequired('Prosím vyberte učebnu.');
 
         $form->addSelect('subject_id', 'Predmet', $subj)
              ->setPrompt('Vyberte Predmet');
@@ -304,12 +305,16 @@ final class TimetablePresenter extends BasePresenter
             'class_id' => $classValues->class_id,
         ];
 
-        $students = $this->studentsRepository->findAll()->where('[st.class_id] = %i', $classId)->orderBy('[st.name] ASC')->fetchAll();
+        if ($classValues->class_id){
+            $students = $this->studentsRepository->findAll()->where('[st.class_id] = %i', $classId)->orderBy('[st.name] ASC')->fetchAll();
+        } else {
+            $students = $this->studentsRepository->findAll()->orderBy('[st.name] ASC')->fetchAll();
+        }
 
         $sit = [];
 
         foreach ($students as $student){
-            $sit[$student->student_id] = $student->name;
+            $sit[$student->student_id] = $student->name .' '. $student->surname;
         }
 
         $seatsContainer = $form->addContainer('seatsContainer');

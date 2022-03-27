@@ -13,7 +13,7 @@
         {formContainer seatsContainer}
             {foreach $seats as $seat}
                 <div>
-                    <select n:name="$seat->seat_id"  class=" bg-slate-700 rounded-md font-medium text-slate-300"></select>
+                    <select n:name="$seat->seat_id"  class="bg-slate-700 rounded-md font-medium text-slate-300 flex justify-center"></select>
                 </div>
             {/foreach}
         {/formContainer}
@@ -21,7 +21,7 @@
         {/foreach}
 </div>
     <div class=" place-content-center p-5 mx-96" id="content">
-    <div class="mx-auto flex flex-col space-y-5 justify-center p-12 bg-slate-800 rounded-md">
+    <div>
         <button type="submit" class="bg-green-500 block hover:bg-blue-900 mx-auto px-6 py-2 rounded-md font-medium" >
             Upraviť
         </button>

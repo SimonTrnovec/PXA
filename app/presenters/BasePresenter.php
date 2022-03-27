@@ -30,7 +30,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         if ($isAdmin == ADMIN){
 
         } else{
-            die;
+            $this->redirect('BackendAuth:Homepage');
         }
     }
 
@@ -41,7 +41,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         if ($isAdmin >= TEACHER){
 
         } else{
-            die;
+            $this->redirect('BackendAuth:Homepage');
         }
     }
 
