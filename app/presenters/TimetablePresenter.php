@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Model\Repositories\ClassGroupsRepository;
 use App\Model\Repositories\ClassroomsRepository;
 use App\Model\Repositories\SeatsRepository;
 use App\Model\Repositories\TimetableRepository;
@@ -60,6 +61,12 @@ final class TimetablePresenter extends BasePresenter
     public $studentsRepository;
 
     /**
+     * @inject
+     * @var ClassGroupsRepository
+     */
+    public $classGroupRepository;
+
+    /**
      * @persistent
      * @var array
      */
@@ -108,10 +115,10 @@ final class TimetablePresenter extends BasePresenter
         }
 
         $form->addSelect('class_id', 'Trieda', $clas)
-            ->setPrompt('Vyberte triedu');
+            ->setPrompt('Vyberte Triedu');
 
         $form->addSelect('classroom_id', 'Ucebna', $classrom)
-            ->setPrompt('Vyberte ucebnu');
+            ->setPrompt('Vyberte Ucebnu');
 
         $form->addSelect('subject_id', 'Predmet', $subj)
             ->setPrompt('Vyberte Predmet');
@@ -166,6 +173,7 @@ final class TimetablePresenter extends BasePresenter
         if (isset($this->filter['class_id'])) {
             $itemsQuery->where('[tt.class_id] LIKE %~like~', $this->filter['class_id']);
         }
+
         if (isset($this->filter['classroom_id'])) {
             $itemsQuery->where('[tt.classroom_id] LIKE %~like~', $this->filter['classroom_id']);
         }
@@ -177,12 +185,12 @@ final class TimetablePresenter extends BasePresenter
         }
 
         $this->items = $itemsQuery->fetchAssoc('timetable_id');
-
     }
 
     public function renderDefault()
     {
         $this->template->timetables = $this->items;
+
     }
 
     protected function createComponentTimetableAddForm(): Form
@@ -222,8 +230,17 @@ final class TimetablePresenter extends BasePresenter
             $thime[$time->time_id] = $time->time_name;
         }
 
-        $form->addSelect('class_id', 'Trieda', $clas)
-             ->setPrompt('Vyberte Triedu');
+        $form->addMultiSelect('class_id', 'Trieda', $clas);
+
+        $form->addSelect('classroom_id', 'Ucebna', $classrom)
+            ->setPrompt('Vyberte Učebňu')
+            ->setRequired('Prosím vyberte učebnu.');
+
+        $form->addSelect('subject_id', 'Predmet', $subj)
+            ->setPrompt('Vyberte Predmet');
+
+        $form->addSelect('time_id', 'Čas', $thime)
+            ->setPrompt('Vyberte Čas');
 
 
         $students = $this->studentsRepository->findAll()->fetchAll();
@@ -288,14 +305,16 @@ final class TimetablePresenter extends BasePresenter
         $form->addSelect('time_id', 'Čas', $thime)
             ->setPrompt('Vyberte Čas');
 
-        $classValues = $this->getTimetable($this->getParameter('id'));
+        $timetableValues = $this->getTimetable($this->getParameter('id'));
 
-        $classId = [
-            'class_id' => $classValues->class_id,
+        $timetableId =  [
+            'timetable_id' => $timetableValues->timetable_id,
         ];
 
-        if ($classValues->class_id){
-            $students = $this->studentsRepository->findAll()->where('[st.class_id] = %i', $classId)->orderBy('[st.name] ASC')->fetchAll();
+        $classGroups = $this->classGroupRepository->findAll()->removeClause('select')->where('[cg.timetable_id] = %i', $timetableId)->select('[cg.class_id]')->fetchAll();
+
+        if ($classGroups){
+            $students = $this->studentsRepository->findAll()->where('[st.class_id] IN %in', $classGroups)->orderBy('[st.name] ASC')->fetchAll();
         } else {
             $students = $this->studentsRepository->findAll()->orderBy('[st.name] ASC')->fetchAll();
         }
@@ -455,16 +474,20 @@ final class TimetablePresenter extends BasePresenter
     {
 
         $values = $form->getValues();
-
-
         $timetableId = $this->timetableRepository->insert([
             'timetable_name' => $values->timetable_name,
-            'class_id'       => $values->class_id,
             'classroom_id'   => $values->classroom_id,
             'subject_id'     => $values->subject_id,
             'time_id'        => $values->time_id,
         ]);
 
+        $classes = $values->class_id;
+        foreach ($classes as $class){
+            $classGroupId = $this->classGroupRepository->insert([
+                'timetable_id' => $timetableId,
+                'class_id' => $class
+            ]);
+        }
 
         $sizes =  $this->classroomsRepository->findAll()
             ->where('[cr.classroom_id] = %i' , $values->classroom_id)->fetchAll();
