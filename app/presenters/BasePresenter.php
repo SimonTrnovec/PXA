@@ -19,7 +19,31 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
       if(! $this->user->isLoggedIn()){
           $this->redirect('BackendAuth:login');
       }
+      $user = $this->getUser();
+      $this->template->isAdmin = $user->getIdentity()->admin;
   }
+
+    public function isAdmin()
+    {
+        $user = $this->getUser();
+        $isAdmin = $user->getIdentity()->admin;
+        if ($isAdmin == ADMIN){
+
+        } else{
+            $this->redirect('BackendAuth:Homepage');
+        }
+    }
+
+    public function isTeacher()
+    {
+        $user = $this->getUser();
+        $isAdmin = $user->getIdentity()->admin;
+        if ($isAdmin >= TEACHER){
+
+        } else{
+            $this->redirect('BackendAuth:Homepage');
+        }
+    }
 
     public function handleLogout()
     {

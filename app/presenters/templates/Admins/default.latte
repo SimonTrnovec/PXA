@@ -1,0 +1,27 @@
+{extends '..//@backend.latte'}
+
+{block content}
+<table class="table-auto block text-slate-300 w-full p-7 mx-52 my-10">
+    <thead class="bg-slate-700 font-medium">
+    <tr>
+        <th class="p-2">Meno</th>
+        <th class="p-2">Email</th>
+        <th class="p-2">Práva</th>
+        <th class="p-2"></th>
+        <th class="p-2"></th>
+{*        <th class=""><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" href="add">Add</a></th>*}
+    </tr>
+
+    </thead>
+    <tbody class="bg-slate-800">
+    {foreach $admins as $admin}
+        <tr>
+            <td class="p-2">{$admin->name}</td>
+            <td class="p-2">{$admin->email}</td>
+            <td class="p-2">{$role[$admin->admin]}</td>
+            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium" n:href="edit $admin->user_id">Edit</a></td>
+            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2 font-medium" n:href="Delete! $admin->user_id">Delete</a></td>
+        </tr>
+    {/foreach}
+    </tbody>
+</table>

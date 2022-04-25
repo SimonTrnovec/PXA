@@ -5,6 +5,7 @@ use App\Model\Repositories\TeachersRepository;
 use App\Model\Repositories\ClassesRepository;
 use App\Model\Repositories\ClassroomsRepository;
 
+use Dibi\Row;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -30,18 +31,119 @@ final class TeachersPresenter extends BasePresenter
      */
     public $classroomsRepository;
 
+    /**
+     * @persistent
+     * @var array
+     */
+    public $filter = [];
+
+    /**
+     * @var Row
+     */
+    protected $items = [];
+
+    public function startup()
+    {
+        parent::startup();
+
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+    }
+
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();
-        $this->template->teachers = $this->teachersRepository->findAll()
+        $itemsQuery = $this->teachersRepository->findAll()
             ->select('[cl.class_name], [cr.classroom_name]')
             ->leftJoin('[classes] cl')
             ->on('[cl.class_id] = [te.class_id]')
             ->leftJoin('[classrooms] cr')
-            ->on('[te.classroom_id] = [cr.classroom_id]')
-            ->fetchAll();
+            ->on('[te.classroom_id] = [cr.classroom_id]');
+
+        if (isset($this->filter['name'])) {
+            $itemsQuery->where('[te.name] LIKE %~like~', $this->filter['name']);
+        }
+        if (isset($this->filter['surname'])) {
+            $itemsQuery->where('[te.surname] LIKE %~like~', $this->filter['surname']);
+        }
+        if (isset($this->filter['email'])) {
+            $itemsQuery->where('[te.email] LIKE %~like~', $this->filter['email']);
+        }
+        if (isset($this->filter['class_id'])) {
+            $itemsQuery->where('[te.class_id] LIKE %~like~', $this->filter['class_id']);
+        }
+        if (isset($this->filter['class_id'])) {
+            $itemsQuery->where('[te.class_id] LIKE %~like~', $this->filter['class_id']);
+        }
+
+        $this->items = $itemsQuery->fetchAssoc('teacher_id');
+    }
+
+    public function renderDefault()
+    {
+        $this->template->teachers = $this->items;
+    }
+
+    protected function createComponentFilterForm()
+    {
+        $form = new Form;
+
+        $form->addGroup();
+
+        $form->addText('name', 'Meno');
+
+        $form->addText('surname', 'Priezvisko');
+
+        $form->addText('email', 'E-mail');
+
+        $classes = $this->classesRepository->findAll()->fetchAll();
+
+        $clas = [];
+        foreach ($classes as $class){
+            $clas[$class->class_id] = $class->class_name;
+        }
+
+        $form->addSelect('class_id', 'Trieda', $clas)
+            ->setPrompt('Vyberte triedu');
+
+        $classrooms = $this->classroomsRepository->findAll()->fetchAll();
+
+        $classrom = [];
+
+        foreach ($classrooms as $classroom){
+            $classrom[$classroom->classroom_id] = $classroom->classroom_name;
+        }
+
+        $form->addSelect('classroom_id', 'Učebňa', $classrom)
+            ->setPrompt('Vyberte učebňu');
+
+        $form->setDefaults($this->filter);
+
+        $form->addSubmit('ok', 'Filtrovať');
+        $form->addSubmit('cancel', 'Zrušiť');
+
+        $form->onSuccess[] = [$this, 'filterFormSucceeded'];
+
+        return $form;
+    }
+
+    public function filterFormSucceeded($form)
+    {
+        if($form['cancel']->isSubmittedBy()) {
+            $this->redirect('default', [
+                'filter'    => NULL,
+            ]);
+        } else {
+            $values = $form->getValues();
+
+            $filteredValues = array_filter((array) $values);
 
 
+            $this->redirect('default', [
+                'filter'    => $filteredValues,
+            ]);
+        }
 
     }
 

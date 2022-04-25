@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Model\Repositories\ClassGroupsRepository;
 use App\Model\Repositories\ClassroomsRepository;
 use App\Model\Repositories\SeatsRepository;
 use App\Model\Repositories\TimetableRepository;
@@ -9,6 +10,7 @@ use App\Model\Repositories\ClassesRepository;
 use App\Model\Repositories\SubjectsRepository;
 use App\Model\Repositories\TimesRepository;
 use App\Model\Repositories\StudentsRepository;
+use Dibi\Row;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -58,10 +60,104 @@ final class TimetablePresenter extends BasePresenter
      */
     public $studentsRepository;
 
+    /**
+     * @inject
+     * @var ClassGroupsRepository
+     */
+    public $classGroupRepository;
+
+    /**
+     * @persistent
+     * @var array
+     */
+    public $filter = [];
+
+    /**
+     * @var Row
+     */
+    protected $items = [];
+
+    protected function createComponentFilterForm()
+    {
+        $form = new Form;
+
+        $form->addGroup();
+        $classes = $this->classesRepository->findAll()->fetchAll();
+
+        $clas = [];
+        foreach ($classes as $class){
+            $clas[$class->class_id] = $class->class_name;
+        }
+
+        $classrooms = $this->classroomsRepository->findAll()->fetchAll();
+
+        $classrom = [];
+
+        foreach ($classrooms as $classroom){
+            $classrom[$classroom->classroom_id] = $classroom->classroom_name;
+        }
+
+        $subjects = $this->subjectsRepository->findAll()->fetchAll();
+
+        $subj = [];
+
+        foreach ($subjects as $subject){
+            $subj[$subject->subject_id] = $subject->subject_name;
+        }
+
+        $times = $this->timesRepository->findAll()->fetchAll();
+
+
+        $thime = [];
+
+        foreach ($times as $time){
+            $thime[$time->time_id] = $time->time_name;
+        }
+
+        $form->addSelect('class_id', 'Trieda', $clas)
+            ->setPrompt('Vyberte Triedu');
+
+        $form->addSelect('classroom_id', 'Ucebna', $classrom)
+            ->setPrompt('Vyberte Ucebnu');
+
+        $form->addSelect('subject_id', 'Predmet', $subj)
+            ->setPrompt('Vyberte Predmet');
+
+        $form->addSelect('time_id', 'Čas', $thime)
+            ->setPrompt('Vyberte Čas');
+
+        $form->setDefaults($this->filter);
+
+        $form->addSubmit('ok', 'Filtrovať');
+        $form->addSubmit('cancel', 'Zrušiť');
+
+        $form->onSuccess[] = [$this, 'filterFormSucceeded'];
+
+        return $form;
+    }
+
+    public function filterFormSucceeded($form)
+    {
+        if($form['cancel']->isSubmittedBy()) {
+            $this->redirect('default', [
+                'filter'    => NULL,
+            ]);
+        } else {
+            $values = $form->getValues();
+
+            $filteredValues = array_filter((array) $values);
+
+
+            $this->redirect('default', [
+                'filter'    => $filteredValues,
+            ]);
+        }
+
+    }
+
     public function actionDefault(){
         parent::startup();
-        $this->template->user = $this->getUser();
-        $this->template->timetables = $this->timetableRepository->findAll()
+        $itemsQuery = $this->timetableRepository->findAll()
             ->select('[cl.class_name], [cr.classroom_name], [su.subject_name], [tm.time_name]')
             ->leftJoin('[classes] cl')
             ->on('[cl.class_id] = [tt.class_id]')
@@ -70,11 +166,97 @@ final class TimetablePresenter extends BasePresenter
             ->leftJoin('[subjects] su')
             ->on('[tt.subject_id] = [su.subject_id]')
             ->leftJoin('[times] tm')
-            ->on('[tt.time_id] = [tm.time_id]')
-            ->fetchAll();
+            ->on('[tt.time_id] = [tm.time_id]');
+
+        $this->template->user = $this->getUser();
+
+        if (isset($this->filter['class_id'])) {
+            $itemsQuery->where('[tt.class_id] LIKE %~like~', $this->filter['class_id']);
+        }
+
+        if (isset($this->filter['classroom_id'])) {
+            $itemsQuery->where('[tt.classroom_id] LIKE %~like~', $this->filter['classroom_id']);
+        }
+        if (isset($this->filter['subject_id'])) {
+            $itemsQuery->where('[tt.subject_id] LIKE %~like~', $this->filter['subject_id']);
+        }
+        if (isset($this->filter['time_id'])) {
+            $itemsQuery->where('[tt.time_id] LIKE %~like~', $this->filter['time_id']);
+        }
+
+        $this->items = $itemsQuery->fetchAssoc('timetable_id');
     }
 
-    protected function createComponentTimetableForm(): Form
+    public function renderDefault()
+    {
+        $this->template->timetables = $this->items;
+
+    }
+
+    protected function createComponentTimetableAddForm(): Form
+    {
+        $form = new Form;
+        $form->addText('timetable_name', 'Názov Rozvrhu');
+
+        $classes = $this->classesRepository->findAll()->fetchAll();
+
+        $clas = [];
+        foreach ($classes as $class){
+            $clas[$class->class_id] = $class->class_name;
+        }
+
+        $classrooms = $this->classroomsRepository->findAll()->fetchAll();
+
+        $classrom = [];
+
+        foreach ($classrooms as $classroom){
+            $classrom[$classroom->classroom_id] = $classroom->classroom_name;
+        }
+
+        $subjects = $this->subjectsRepository->findAll()->fetchAll();
+
+        $subj = [];
+
+        foreach ($subjects as $subject){
+            $subj[$subject->subject_id] = $subject->subject_name;
+        }
+
+        $times = $this->timesRepository->findAll()->fetchAll();
+
+
+        $thime = [];
+
+        foreach ($times as $time){
+            $thime[$time->time_id] = $time->time_name;
+        }
+
+        $form->addMultiSelect('class_id', 'Trieda', $clas);
+
+        $form->addSelect('classroom_id', 'Ucebna', $classrom)
+            ->setPrompt('Vyberte Učebňu')
+            ->setRequired('Prosím vyberte učebnu.');
+
+        $form->addSelect('subject_id', 'Predmet', $subj)
+            ->setPrompt('Vyberte Predmet');
+
+        $form->addSelect('time_id', 'Čas', $thime)
+            ->setPrompt('Vyberte Čas');
+
+
+        $students = $this->studentsRepository->findAll()->fetchAll();
+
+        $sit = [];
+
+        foreach ($students as $student){
+            $sit[$student->student_id] = $student->name;
+        }
+
+        return $form;
+    }
+
+
+
+    protected function createComponentTimetableEditForm(): Form
     {
         $form = new Form;
         $form->addText('timetable_name', 'Názov Rozvrhu');
@@ -112,16 +294,45 @@ final class TimetablePresenter extends BasePresenter
         }
 
         $form->addSelect('class_id', 'Trieda', $clas)
-             ->setPrompt('Vyberte triedu');
+            ->setPrompt('Vyberte triedu');
 
         $form->addSelect('classroom_id', 'Ucebna', $classrom)
-             ->setPrompt('Vyberte ucebnu');
+            ->setPrompt('Vyberte ucebnu');
 
         $form->addSelect('subject_id', 'Predmet', $subj)
-             ->setPrompt('Vyberte Predmet');
+            ->setPrompt('Vyberte Predmet');
 
         $form->addSelect('time_id', 'Čas', $thime)
-             ->setPrompt('Vyberte Čas');
+            ->setPrompt('Vyberte Čas');
+
+        $timetableValues = $this->getTimetable($this->getParameter('id'));
+
+        $timetableId =  [
+            'timetable_id' => $timetableValues->timetable_id,
+        ];
+
+        $classGroups = $this->classGroupRepository->findAll()->removeClause('select')->where('[cg.timetable_id] = %i', $timetableId)->select('[cg.class_id]')->fetchAll();
+
+        if ($classGroups){
+            $students = $this->studentsRepository->findAll()->where('[st.class_id] IN %in', $classGroups)->orderBy('[st.name] ASC')->fetchAll();
+        } else {
+            $students = $this->studentsRepository->findAll()->orderBy('[st.name] ASC')->fetchAll();
+        }
+
+        $sit = [];
+
+        foreach ($students as $student){
+            $sit[$student->student_id] = $student->name .' '. $student->surname;
+        }
+
+        $seatsContainer = $form->addContainer('seatsContainer');
+
+        $seats = $this->getSeats($this->getParameter('id'));
+        foreach ($seats as $seat) {
+            $seatsContainer->addSelect($seat->seat_id, 'Miesto', $sit)
+                ->setPrompt('-');
+        }
+
 
         return $form;
     }
@@ -138,12 +349,35 @@ final class TimetablePresenter extends BasePresenter
         return $timetable;
     }
 
-    public function actionEdit($id): Form
+    private function getSeats($id)
     {
+
+        $seats = $this->seatsRepository->findAll()
+            ->where('[se.timetable_id] = %i' , $id)
+            ->select('[st.name], [st.surname]')
+            ->leftJoin('[students] st')
+            ->on('[se.student_id] = [st.student_id]')->orderBy(['order'])
+            ->fetchAll();
+
+        if (!$seats){
+            $this->flashMessage('Miesto neexistuje.', 'error');
+            $this->redirect('default');
+        }
+
+        return $seats;
+    }
+
+    public function actionEdit($id)
+    {
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+
         $timetable = $this->getTimetable($id);
+        $seats = $this->getSeats($id);
 
         /** @var  \Nette\Application\UI\Form $form */
-        $form = $this['timetableForm'];
+        $form = $this['timetableEditForm'];
 
         $this->template->timetable = $timetable;
 
@@ -161,39 +395,28 @@ final class TimetablePresenter extends BasePresenter
             ->on('[se.student_id] = [st.student_id]')->orderBy(['order'])
             ->fetchAll();
 
-        $seats = $this->seatsRepository->findAll()
-            ->where('[se.timetable_id] = %i' , $id)
-            ->select('[st.name], [st.surname]')
-            ->leftJoin('[students] st')
-            ->on('[se.student_id] = [st.student_id]')->orderBy(['order'])
-            ->fetchAll();
+        $this->template->students = $this->studentsRepository->findAll()->fetchAll();
 
-        $students = $this->studentsRepository->findAll()->fetchAll();
+        $seats = $this->getSeats($id);
 
-
-        $sit = [];
-
-        foreach ($students as $student){
-            $sit[$student->student_id] = $student->name;
+        $seatsContainer = $form['seatsContainer'];
+        foreach ($seats as $seat){
+            $seatsContainer[$seat->seat_id]->setDefaultValue($seat->student_id);
         }
-
-
-            $form->addSelect('student_id', 'Ucebna', $sit)
-                ->setPrompt('Vyberte žiaka');
-
 
         $form->setDefaults($timetable);
         $form->addSubmit('ok', 'Upraviť');
         $form->onSuccess[] = [$this, 'timetableFormEditSucceeded'];
-
-
-        return $form;
     }
 
-    public function actionAdd($id): Form
+    public function actionAdd()
     {
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
+
         /** @var  \Nette\Application\UI\Form $form */
-        $form = $this['timetableForm'];
+        $form = $this['timetableAddForm'];
 
         $form->addSubmit('ok', 'Pridať');
         $form->onSuccess[] = [$this, 'timetableFormAddSucceeded'];
@@ -221,30 +444,22 @@ final class TimetablePresenter extends BasePresenter
     public function timetableFormEditSucceeded($form)
     {
         $values = $form->getValues();
-        $timetableId = $this->getParameter('id');
-        $seatId = $this->getParameter('id');
 
-        $timetableData = [
-            'timetable_name' => $values->timetable_name,
-            'class_id'       => $values->class_id,
-            'classroom_id'   => $values->classroom_id,
-            'subject_id'     => $values->subject_id,
-            'time_id'        => $values->time_id,
-        ];
-
-        $seatData = [
-            'student_id' => $values->student_id,
-        ];
-
-        $this->timetableRepository->update($timetableId, $timetableData);
-
-        $this->seatsRepository->update($seatId, $seatData);
+        $seatsContainerData = $values->seatsContainer;
+        $seats = $this->getSeats($this->getParameter('id'));
+        foreach ($seats as $seat) {
+            $this->seatsRepository->update($seat->seat_id, ['student_id' => $seatsContainerData[$seat->seat_id]]);
+        }
 
         $this->flashMessage('Rozvrh bol upravený');
         $this->redirect('default');
     }
 
     public function handleDelete($id){
+
+        if($this->isTeacher()){
+            $this->redirect('BackendAuth:login');
+        }
 
         $timetable = $this->getTimetable($id);
 
@@ -259,16 +474,20 @@ final class TimetablePresenter extends BasePresenter
     {
 
         $values = $form->getValues();
-
-
         $timetableId = $this->timetableRepository->insert([
             'timetable_name' => $values->timetable_name,
-            'class_id'       => $values->class_id,
             'classroom_id'   => $values->classroom_id,
             'subject_id'     => $values->subject_id,
             'time_id'        => $values->time_id,
         ]);
 
+        $classes = $values->class_id;
+        foreach ($classes as $class){
+            $classGroupId = $this->classGroupRepository->insert([
+                'timetable_id' => $timetableId,
+                'class_id' => $class
+            ]);
+        }
 
         $sizes =  $this->classroomsRepository->findAll()
             ->where('[cr.classroom_id] = %i' , $values->classroom_id)->fetchAll();

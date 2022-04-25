@@ -38,12 +38,12 @@ class BackendAuthPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Form;
         $form->addText('username', 'Uživatelské jméno:')
-            ->setRequired('Prosím vyplňte své uživatelské jméno.');
+            ->setRequired('Prosím vyplnte svoje uživateľské meno.');
 
         $form->addPassword('password', 'Heslo:')
-            ->setRequired('Prosím vyplňte své heslo.');
+            ->setRequired('Prosím vyplňte svoje heslo.');
 
-        $form->addSubmit('send', 'Přihlásit');
+        $form->addSubmit('send', 'Prihlásit');
 
         $form->onSuccess[] = [$this, 'loginFormSucceeded'];
         return $form;
@@ -55,11 +55,11 @@ class BackendAuthPresenter extends Nette\Application\UI\Presenter
         $this->getUser()->setAuthenticator($this->authenticator);
         try {
             $this->getUser()->login($values->username, $values->password);
-            $this->flashMessage('boli ste úspešne prihlásený');
+            $this->flashMessage('Boli ste úspešne prihlásený');
             $this->redirect('Homepage:');
 
         } catch (Nette\Security\AuthenticationException $e) {
-            $form->addError('Nesprávné přihlašovací jméno nebo heslo.');
+            $form->addError('Nesprávne prihlasovacie meno alebo heslo.');
         }
 
     }
@@ -68,13 +68,13 @@ class BackendAuthPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Form;
         $form->addText('name', 'Uživatelské jméno:')
-            ->setRequired('Prosím vyplňte své uživatelské jméno.');
+            ->setRequired('Prosím vyplňte svoje uživateľské meno.');
 
-        $form->addText('email', 'Uživatelský E-mail:')
-            ->setRequired('Prosím vyplňte své uživatelské jméno.');
+        $form->addEmail('email', 'Uživatelský E-mail:')
+            ->setRequired('Prosím vyplňte svoje E-mail.');
 
         $form->addPassword('password', 'Heslo:')
-            ->setRequired('Prosím vyplňte své heslo.');
+            ->setRequired('Prosím vyplňte svoje heslo.');
 
         $form->addSubmit('send', 'Přihlásit');
 

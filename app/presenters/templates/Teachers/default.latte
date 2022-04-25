@@ -1,7 +1,36 @@
 {extends '..//@backend.latte'}
 
 {block content}
-<table class="table-auto block text-slate-300 w-full p-7 mx-52 my-20">
+{form filterForm}
+    {control filterForm errors}
+    <div class="p-1 place-text-center mx-60">
+        <p class="place-text-center font-medium text-lg text-slate-500 my-1 mx-6">Filter</p>
+        </div>
+    <div class=" place-content-center p-5 grid grid-rows-2 grid-flow-col gap-0">
+
+        <div class="p-1 ">
+            <input n:name="name" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="Meno">
+        </div>
+        <div class="p-1">
+            <input n:name="surname" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="Priezvisko">
+        </div>
+        <div class="p-1">
+            <input n:name="email" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="E-mail">
+        </div>
+        <div class="p-1">
+            <select n:name="class_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="Trieda"> </select>
+        </div>
+        <div class="p-1">
+            <select n:name="classroom_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="Učebňa"></select>
+        </div>
+    </div>
+    <div class=" place-content-center p-5 mx-96">
+        {input ok 'class' => 'hover:bg-blue-400 class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    {input cancel 'class' => 'hover:bg-blue-400 class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    </div>
+{/form}
+<div>
+<table class="table-auto block text-slate-300 w-full p-7 mx-52 my-7">
 	<thead class="bg-slate-700 font-medium">
 		<tr>
 			<th class="p-2">Meno</th>
@@ -28,3 +57,4 @@
 	{/foreach}
 	</tbody>
 </table>
+</div>

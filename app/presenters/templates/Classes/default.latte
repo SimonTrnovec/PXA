@@ -1,7 +1,22 @@
 {extends '..//@backend.latte'}
 
 {block content}
-<table class="table-auto block text-slate-300 w-full justify-center p-5 mx-96 my-20">
+{form filterForm}
+    {control filterForm errors}
+    <div class="p-1 place-text-center mx-96">
+        <p class="place-text-center font-medium text-lg text-slate-500 my-1 mx-4">Filter</p>
+        </div>
+    <div class=" place-content-center p-5 mx-96">
+        <div>
+            <input n:name="class_name" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="Názov triedy">
+        </div>
+    </div>
+    <div class=" place-content-center p-5 mx-96">
+        {input ok 'class' => 'class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    {input cancel 'class' => 'class="font-medium text-slate-300 bg-slate-700 rounded-md px-6 py-2"'}
+    </div>
+{/form}
+<table class="table-auto block text-slate-300 w-full justify-center p-5 mx-96 my-2">
     <thead class="bg-slate-700 font-medium">
     <tr>
         <th class="p-2">Trieda</th>
@@ -15,8 +30,8 @@
         <tr>
             <td class="p-2">{$class->class_name}</td>
 
-            <td class="p-2"><a class="btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium " n:href="edit $class->class_id">Edit</a></td>
-            <td class="p-2"><a class="bg-red-500 hover:bg-blue-400 rounded p-2 font-medium" n:href="Delete! $class->class_id">Delete</a></td>
+            <td class="p-2"><a class=" hover:bg-blue-400 btn bg-green-500 hover:bg-blue-400 rounded p-2 font-medium " n:href="edit $class->class_id">Edit</a></td>
+            <td class="p-2"><a class=" hover:bg-blue-400 bg-red-500 hover:bg-blue-400 rounded p-2 font-medium" n:href="Delete! $class->class_id">Delete</a></td>
         </tr>
     {/foreach}
     </tbody>

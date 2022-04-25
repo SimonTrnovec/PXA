@@ -3,6 +3,7 @@
 namespace App\Presenters;
 use App\Model\Repositories\ClassesRepository;
 use App\Model\Repositories\StudentsRepository;
+use Dibi\Row;
 use Nette;
 use Nette\Application\UI\Form;
 
@@ -22,14 +23,93 @@ final class StudentsPresenter extends BasePresenter
      */
     public $classesRepository;
 
+    /**
+     * @persistent
+     * @var array
+     */
+    public $filter = [];
+
+    /**
+     * @var Row
+     */
+    protected $items = [];
+
     public function actionDefault(){
         parent::startup();
         $this->template->user = $this->getUser();
-        $this->template->students = $this->studentsRepository->findAll()
+        $itemsQuery = $this->studentsRepository->findAll()
             ->select('[cl.class_name]')
             ->leftJoin('[classes] cl')
-            ->on('[cl.class_id] = [st.class_id]')
-            ->fetchAll();
+            ->on('[cl.class_id] = [st.class_id]');
+
+        if (isset($this->filter['class_id'])) {
+            $itemsQuery->where('[st.class_id] LIKE %~like~', $this->filter['class_id']);
+        }
+        if (isset($this->filter['name'])) {
+            $itemsQuery->where('[st.name] LIKE %~like~', $this->filter['name']);
+        }
+        if (isset($this->filter['surname'])) {
+            $itemsQuery->where('[st.surname] LIKE %~like~', $this->filter['surname']);
+        }
+        if (isset($this->filter['time_id'])) {
+            $itemsQuery->where('[tt.time_id] LIKE %~like~', $this->filter['time_id']);
+        }
+
+        $this->items = $itemsQuery->fetchAssoc('student_id');
+    }
+
+    public function renderDefault()
+    {
+        $this->template->students = $this->items;
+    }
+
+    protected function createComponentFilterForm()
+    {
+        $form = new Form;
+
+        $form->addGroup();
+        $classes = $this->classesRepository->findAll()->fetchAll();
+
+        $clas = [];
+        foreach ($classes as $class){
+            $clas[$class->class_id] = $class->class_name;
+        }
+
+        $form->addText('name', 'Meno');
+
+        $form->addText('surname', 'Priezvisko');
+
+        $form->addSelect('class_id', 'Trieda', $clas)
+        ->setPrompt('Vyberte triedu');
+
+
+        $form->setDefaults($this->filter);
+
+        $form->addSubmit('ok', 'Filtrovať');
+        $form->addSubmit('cancel', 'Zrušiť');
+
+        $form->onSuccess[] = [$this, 'filterFormSucceeded'];
+
+        return $form;
+    }
+
+    public function filterFormSucceeded($form)
+    {
+        if($form['cancel']->isSubmittedBy()) {
+            $this->redirect('default', [
+                'filter'    => NULL,
+            ]);
+        } else {
+            $values = $form->getValues();
+
+            $filteredValues = array_filter((array) $values);
+
+
+            $this->redirect('default', [
+                'filter'    => $filteredValues,
+            ]);
+        }
+
     }
 
     protected function createComponentStudentForm(): Form
@@ -84,7 +164,7 @@ final class StudentsPresenter extends BasePresenter
         return $form;
     }
 
-    public function actionAdd($id): Form
+    public function actionAdd(): Form
     {
         /** @var  \Nette\Application\UI\Form $form */
         $form = $this['studentForm'];
