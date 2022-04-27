@@ -73,8 +73,8 @@ final class TeachersPresenter extends BasePresenter
         if (isset($this->filter['class_id'])) {
             $itemsQuery->where('[te.class_id] LIKE %~like~', $this->filter['class_id']);
         }
-        if (isset($this->filter['class_id'])) {
-            $itemsQuery->where('[te.class_id] LIKE %~like~', $this->filter['class_id']);
+        if (isset($this->filter['classroom_id'])) {
+            $itemsQuery->where('[cr.classroom_id] LIKE %~like~', $this->filter['classroom_id']);
         }
 
         $this->items = $itemsQuery->fetchAssoc('teacher_id');
