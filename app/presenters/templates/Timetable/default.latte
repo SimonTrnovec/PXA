@@ -7,10 +7,10 @@
         <p class="place-text-center font-medium text-lg text-slate-500 my-1 mx-5">Filter</p>
   </div>
   <div class=" place-content-center p-5 mx-96">
-    <div class="p-1">
+{*    <div class="p-1">*}
 {*      {label class_id /}*}
-      <select n:name="class_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="Vyberte triedu"></select>
-    </div>
+{*      <select n:name="class_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="Vyberte triedu"></select>*}
+{*    </div>*}
     <div class="p-1">
 {*      {label classroom_id /}*}
       <select n:name="classroom_id" class="font-medium text-slate-300 bg-slate-700 rounded-md px-4 py-1" placeholder="Vyberte učebnu"></select>
@@ -33,7 +33,7 @@
   <thead class="bg-slate-700 font-medium">
   <tr>
     <th class="p-2">Rozvrh hodín</th>
-    <th class="p-2">Trieda</th>
+{*    <th class="p-2">Trieda</th>*}
     <th class="p-2">Učebňa</th>
     <th class="p-2">Predmet</th>
     <th class="p-2">Čas</th>
@@ -49,7 +49,7 @@
   {foreach $timetables as $timetable}
     <tr>
       <td class="p-2">{$timetable->timetable_name}</td>
-      <td class="p-2">{$timetable->class_name}</td>
+{*      <td class="p-2">{$timetable->class_name}</td>*}
       <td class="p-2">{$timetable->classroom_name}</td>
       <td class="p-2">{$timetable->subject_name}</td>
       <td class="p-2">{$timetable->time_name}</td>

@@ -35,6 +35,7 @@
 		<div class="flex-none h-full">
 			<div class=" bg-slate-700 " style=" width: 200px;  ">
 				<h2 class="p-5 font-medium text-xl" style="color: white;">Maturitná práca</h2>
+				<p class=" p-7 font-medium text-xl rounded-lg text-blue-200 font-medium">{$user->identity->data['name']}</p>
 				<div class=" bg-slate-700 p-5 pt-27 min-h-screen" style=" width: 200px;" >
 					{if $isAdmin}
 						<a n:href="Teachers:" type="submit" class=" text-left hover:bg-blue-400 font-medium bg-slate-700 block px-4 py-2
@@ -77,9 +78,6 @@
 					<ul>
 						<li>
 							<a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900 p-2" n:href="logout!">Odhlásiť sa</a>
-						</li>
-						<li>
-							<a type="button" class="rounded-lg text-blue-200 font-medium hover:bg-slate-100 hover:text-blue-900"></a>
 						</li>
 					</ul>
 				</div>

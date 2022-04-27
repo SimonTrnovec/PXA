@@ -168,8 +168,6 @@ final class TimetablePresenter extends BasePresenter
             ->leftJoin('[times] tm')
             ->on('[tt.time_id] = [tm.time_id]');
 
-        $this->template->user = $this->getUser();
-
         if (isset($this->filter['class_id'])) {
             $itemsQuery->where('[tt.class_id] LIKE %~like~', $this->filter['class_id']);
         }
